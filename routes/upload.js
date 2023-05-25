@@ -44,6 +44,7 @@ router.get("/", (req, res)=>{
 
 router.post("/", async (req, res) => { 
     try{
+        console.log(req)
         if (req.files && req.files.pdfbm_upload.mimetype==='application/pdf'){
             const pdf = req.files.pdfbm_upload;
             const origName = pdf.name;
@@ -111,6 +112,7 @@ function pageCountPDFPromise(path){
 //example:  ppageCountPDF(__dirname+"/upload/PDFMarkRecipes.pdf");
 async function ppageCountPDF(path, res, name){
     try {
+        log(path)
         let {numPages: pages} = await pageCountPDFPromise(path);
         // let ret = httpObject(httpCode.CREATED);
         // ret["pages"] = pages;

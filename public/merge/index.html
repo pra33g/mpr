@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="icon" href="./remove.png"> 
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    
+    <body>
+        
+        <div class="signupSection">
+            
+            <h2 style="font-size: 3rem;">Upload File</h2>
+            <form class="mergeform" id="form_merge_1" action="/merge" enctype="multipart/form-data" method="POST" class="signupForm">
+                <input type="file" id="merge_upload_1" class="inputFields" accept="application/pdf" name="pdfbm_upload" multiple="multiple"><br><br />                        
+                <input type="submit" id="upload_button_1" value="Upload" class="">            
+            </form>   
+            <form class="mergeform" id="form_merge_2" action="/merge" enctype="multipart/form-data" method="POST" class="signupForm">
+                <input type="file" id="merge_upload_2" class="inputFields" accept="application/pdf" name="pdfbm_upload" multiple="multiple"><br><br />                        
+                <input type="submit" id="upload_button_2" value="Upload" class="">            
+            </form>  
+            <!-- <label for="uploadButton_1" for="uploadButton_2">SUMMIT</label> -->
+            <button id="submitButton" >SUBMIT</button>
+                    <button id="add-button">
+                    +++
+                    </button>
+        </div>
+    </body>
+
+    <script src="script.js"></script>
+</html>
