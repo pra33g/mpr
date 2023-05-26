@@ -26,3 +26,28 @@ async function removeText(){
         len--;  
     }
 }
+
+const source = new EventSource('/sse');
+source.addEventListener("message", message => {
+    let got = JSON.parse(message.data);
+    console.log("Got ", got);
+    
+    if (got.message == "conversion-done"){
+        //  displayMessage.innerText = "Downloading file, Please wait.\nRefresh page to start again.";
+        
+        convertedName = got.name;
+        downloadPDF(convertedName);
+    } 
+    if(got.message == "processing-file"){
+        // displayMessage.innerText = "Server is processing file, please wait.";
+        
+    }
+    if(got.message == "pages"){
+        // displayMessage.innerText = `Pages: ${pages}`;
+
+    }
+    if(got.message == "Format unacceptable"){
+        // displayMessage.innerText = `Format unacceptable`;
+
+    }
+});

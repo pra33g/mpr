@@ -69,17 +69,7 @@ router.post("/", async (req, res) => {
                         
                     } else {
                         //file has been saved with name pdf.name
-                        log('saved', pdf.name)
-                        
-                        let fs = require('fs')
-                        fs.readFile(pdfPath, (e, d) => {
-                            if (e){log(e)}
-                            //after file created
-                            else {
-                                log(d, "line 77", fs.existsSync(pdfPath))
-                                ppageCountPDF(pdfPath, res, pdf.name);
-                            }
-                        })
+                        pages = ppageCountPDF(pdfPath, res, pdf.name);
                     }
                 });
                  
@@ -123,18 +113,13 @@ function pageCountPDFPromise(path){
 async function ppageCountPDF(path, res, name){
     try {
         
-        let fs = require('fs')
-        log("FF: 126", fs.existsSync(path))
-        fs.stat(path, (e, s) => {
-            if (e){log(e)}
-            else{log(s.size, "at line 129")}
-        })
-        log("at line 131")
         let {numPages: pages} = await pageCountPDFPromise(path);
         // let ret = httpObject(httpCode.CREATED);
         // ret["pages"] = pages;
         // ret["name"] = name;
         res.json(httpObject(httpCode.CREATED, {"pages":pages, "name":name, "message":"Successfully opened PDF"}));
+        // log('here')
+        sendSse({'fucku':"fucku2"})
         // res.json(ret);
         return pages;
     }

@@ -139,7 +139,6 @@ $('#form_bookmark').submit(
         xhr.open("POST", "/upload");
         xhr.responseType = 'json';
 
-
         xhr.send(formData);
         xhr.upload.addEventListener("load", successUpload);
 
@@ -149,7 +148,6 @@ $('#form_bookmark').submit(
                 completeUpload(xhr.response);
             }
         };
-
     } 
 );
 function resetBmInputContainer(){
