@@ -44,7 +44,6 @@ router.get("/", (req, res)=>{
 
 router.post("/", async (req, res) => { 
     try{
-        console.log(req.files)
         if (req.files && req.files.pdfbm_upload.mimetype==='application/pdf'){
             const pdf = req.files.pdfbm_upload;
             const origName = pdf.name;
@@ -69,6 +68,7 @@ router.post("/", async (req, res) => {
                         
                     } else {
                         //file has been saved with name pdf.name
+                        log('Created:', pdfPath)
                         pages = ppageCountPDF(pdfPath, res, pdf.name);
                     }
                 });
@@ -114,13 +114,7 @@ async function ppageCountPDF(path, res, name){
     try {
         
         let {numPages: pages} = await pageCountPDFPromise(path);
-        // let ret = httpObject(httpCode.CREATED);
-        // ret["pages"] = pages;
-        // ret["name"] = name;
         res.json(httpObject(httpCode.CREATED, {"pages":pages, "name":name, "message":"Successfully opened PDF"}));
-        // log('here')
-        sendSse({'fucku':"fucku2"})
-        // res.json(ret);
         return pages;
     }
     catch (err) {

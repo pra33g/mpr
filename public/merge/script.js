@@ -15,6 +15,19 @@ document.getElementById("add-button").addEventListener('click', function(event){
     container.insertAdjacentHTML('beforeend', text)
 })
 
+let totalFilesToUpload = 0;
+let totalFilesUploaded = 0;
+let uploadedFilenames = [];
+function multiUploadHandler(){
+    log(totalFilesUploaded," of ", totalFilesToUpload, ' files uploaded.')
+    if (totalFilesToUpload == totalFilesUploaded){
+        log(uploadedFilenames)
+
+    } else {
+        log('All files not uploaded.')
+    }
+}
+
 document.getElementById('submitButton').addEventListener('click', e => {
     forms = document.getElementsByClassName('mergeform')
     btn = document.querySelectorAll("[id^=upload_button_]");
@@ -35,14 +48,15 @@ document.getElementById('submitButton').addEventListener('click', e => {
                 //get response from server in json and log it
                 xhr.onreadystatechange = ()=>{
                     if(xhr.readyState == XMLHttpRequest.DONE){
-                        completeUpload(xhr.response);
                         log(xhr.response)
+                        completeUpload(xhr.response);
                     }
                 };
             })
             form.dataset.addedsubmiteventlistener = 'true'
         }
     }
+    totalFilesToUpload = btn.length;
     for (let i = 0; i < btn.length; i++){
         btn[i].click()
     }
@@ -56,13 +70,22 @@ function progressHandler(event){
 }
 function successUpload(event){
     allBytesUploaded = "DONE";
+    log("DONE")
+    
 
 }
 function completeUpload(data){
 
     if(data.http == 201){
-        upFileName = data.name;
+        let upFileName = data.name;
+        // log(totalFilesUploaded)
+        totalFilesUploaded+=1;
+        // log(totalFilesUploaded)
+
+        uploadedFilenames.push(upFileName)
         // log('created file')
+        multiUploadHandler();
+        
         
     }
     else {
