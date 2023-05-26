@@ -15,7 +15,6 @@ document.getElementById('submitButton').addEventListener('click', e => {
     for (let i = 0; i < btn.length; i++){
         btn[i].click()
     }
-    document.getElementById('upload_button_1').click()    
 })
 $('.mergeform').submit(
     // $('#form_merge_1').submit(
@@ -35,7 +34,7 @@ $('.mergeform').submit(
         xhr.onreadystatechange = ()=>{
             if(xhr.readyState == XMLHttpRequest.DONE){
                 completeUpload(xhr.response);
-                console.log(xhr.response)
+                log(xhr.response)
             }
         };
     } 
