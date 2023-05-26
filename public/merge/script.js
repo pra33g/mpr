@@ -21,11 +21,26 @@ let uploadedFilenames = [];
 function multiUploadHandler(){
     log(totalFilesUploaded," of ", totalFilesToUpload, ' files uploaded.')
     if (totalFilesToUpload == totalFilesUploaded){
-        log(uploadedFilenames)
-
+        //post to /merge
+        postFileNamesToMerge()
 
     } else {
         log('All files not uploaded.')
+    }
+}
+
+function postFileNamesToMerge(){
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "/merge")
+    xhr.responseType = 'json'
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    reqJSON = {"filenames":uploadedFilenames}
+    // let filenamesStringified = JSON.stringify(uploadedFilenames)
+    xhr.send(JSON.stringify(reqJSON))
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState == XMLHttpRequest.DONE){
+            log(xhr.response)
+        }
     }
 }
 
@@ -58,6 +73,7 @@ document.getElementById('submitButton').addEventListener('click', e => {
         }
     }
     totalFilesToUpload = btn.length;
+    totalFilesUploaded = 0;
     for (let i = 0; i < btn.length; i++){
         btn[i].click()
     }

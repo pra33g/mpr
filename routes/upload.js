@@ -119,7 +119,7 @@ async function ppageCountPDF(path, res, name){
     }
     catch (err) {
         console.log(err);
-        let ret = httpObject(httpCode.INTERNAL_SERVER_ERROR,{"message":"PDFError check your pdf"});
+        let ret = httpObject(httpCode.INTERNAL_SERVER_ERROR,{"message":`PDFError check your pdf${name}`});
         res.json(ret);
         return -1;
     }

@@ -3,7 +3,7 @@ const {sendSse} = require("./sse.js");
 //route: /upload
 //express handles the server and routing within server
 const express = require('express');
-const { application } = require("express");
+// const { application } = require("express");
 //function to get a string with reason(meaning) of a http code
 const httpReason = require('http-status-codes').getReasonPhrase;
 //enum with http codes
@@ -29,7 +29,6 @@ router.post("/", (req, res) => {
         callPdfBM(req.body.name);
         let convertedName = req.body.name.substring(0,21).concat("-converted.pdf");
         sendSse({"message":"conversion-done", "name":convertedName});
-
     })
     .catch(err=>{
         log(err);

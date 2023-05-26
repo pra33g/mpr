@@ -14,6 +14,7 @@ const upload = require('./routes/upload');
 const add = require('./routes/add');
 const sse = require('./routes/sse').router;
 const download = require('./routes/preview');
+const merge = require('./routes/merge')
 //start app
 app.listen(port, ()=>console.log("http://localhost:" + port));
 
@@ -47,6 +48,7 @@ app.use("/sse", sse);
 app.use("/add", add);
 app.use("/upload", upload);
 app.use("/download", download);
+app.use("/merge", merge);
 app.use("/preview", express.static(__dirname+"/upload/"));
 
 //set homepage
