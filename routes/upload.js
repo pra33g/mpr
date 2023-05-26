@@ -44,7 +44,7 @@ router.get("/", (req, res)=>{
 
 router.post("/", async (req, res) => { 
     try{
-        console.log(req)
+        console.log(req.files)
         if (req.files && req.files.pdfbm_upload.mimetype==='application/pdf'){
             const pdf = req.files.pdfbm_upload;
             const origName = pdf.name;
@@ -62,14 +62,24 @@ router.post("/", async (req, res) => {
                 let pagesInPDF ;
                 // console.log( req.files);
                 let pdfPath = __dirname+"/upload/"+pdf.name;
-                pdf.mv(__dirname+"/upload/"+pdf.name, err => {
+                pdf.mv(pdfPath, err => {
                     if (err){
                         log(err);
                         res.json(httpObject(httpCode.UNPROCESSABLE_ENTITY));
                         
                     } else {
                         //file has been saved with name pdf.name
-                        ppageCountPDF(pdfPath, res, pdf.name);
+                        log('saved', pdf.name)
+                        
+                        let fs = require('fs')
+                        fs.readFile(pdfPath, (e, d) => {
+                            if (e){log(e)}
+                            //after file created
+                            else {
+                                log(d, "line 77", fs.existsSync(pdfPath))
+                                ppageCountPDF(pdfPath, res, pdf.name);
+                            }
+                        })
                     }
                 });
                  
@@ -112,7 +122,14 @@ function pageCountPDFPromise(path){
 //example:  ppageCountPDF(__dirname+"/upload/PDFMarkRecipes.pdf");
 async function ppageCountPDF(path, res, name){
     try {
-        log(path)
+        
+        let fs = require('fs')
+        log("FF: 126", fs.existsSync(path))
+        fs.stat(path, (e, s) => {
+            if (e){log(e)}
+            else{log(s.size, "at line 129")}
+        })
+        log("at line 131")
         let {numPages: pages} = await pageCountPDFPromise(path);
         // let ret = httpObject(httpCode.CREATED);
         // ret["pages"] = pages;

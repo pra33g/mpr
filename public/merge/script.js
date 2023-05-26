@@ -2,44 +2,77 @@ const log = console.log.bind(console);
 
 document.getElementById("add-button").addEventListener('click', function(event){
     event.preventDefault()
-    const form = document.getElementById("merge_upload_container")
-    const div = document.querySelectorAll("[id^=merge_upload]")
-    let nextId = div.length
+    const container = document.getElementById("form-container")
+    const div = document.querySelectorAll("[id^=form_merge_]")
+    let nextId = div.length + 1
 
-    let text = `<input type="file" id="merge_upload${nextId}" class="inputFields" accept="application/pdf" name="pdf_upload${nextId}" multiple="multiple"><br><br />`
-    form.insertAdjacentHTML('beforeend', text)
+    let text = `
+    <form class="mergeform" data-addedSubmitEventListener="false" id="form_merge_${nextId}" action="/merge" enctype="multipart/form-data" method="POST" class="signupForm">
+    <input type="file" id="merge_upload_${nextId}" class="inputFields" accept="application/pdf" name="pdfbm_upload" multiple="multiple"><br><br />                        
+    <input type="submit" id="upload_button_${nextId}" value="Upload" class="">            
+    </form>    
+    `
+    container.insertAdjacentHTML('beforeend', text)
 })
 
 document.getElementById('submitButton').addEventListener('click', e => {
+    forms = document.getElementsByClassName('mergeform')
     btn = document.querySelectorAll("[id^=upload_button_]");
+    for (let form of forms){
+        if (form.dataset.addedsubmiteventlistener === 'false'){
+            log('added to ', form)
+            form.addEventListener('submit', e => {
+                // e.preventDefault()
+                e.preventDefault();
+                // log("added to")
+                let formData = new FormData(form);
+                let xhr = new XMLHttpRequest();
+                xhr.upload.addEventListener("progress", progressHandler);
+                xhr.open("POST", "/upload");
+                xhr.responseType = 'json';
+    
+                xhr.send(formData);
+                xhr.upload.addEventListener("load", successUpload);
+    
+                //get response from server in json and log it
+                xhr.onreadystatechange = ()=>{
+                    if(xhr.readyState == XMLHttpRequest.DONE){
+                        completeUpload(xhr.response);
+                        log(xhr.response)
+                    }
+                };
+            })
+            form.dataset.addedsubmiteventlistener = 'true'
+        }
+    }
     for (let i = 0; i < btn.length; i++){
-        btn[i].click()
+        // btn[i].click()
     }
 })
-$('.mergeform').submit(
-    // $('#form_merge_1').submit(
-    function( e ) {
-        log(this)
-        e.preventDefault();
-        let formData = new FormData(this);
-        let xhr = new XMLHttpRequest();
-        xhr.upload.addEventListener("progress", progressHandler);
-        xhr.open("POST", "/upload");
-        xhr.responseType = 'json';
+function sendFormData(e){}
+// $('.mergeform').submit(
+//     // $('#form_merge_1').submit(
+//     function( e ) {
+//         log(this)
+//         e.preventDefault();
+//         let formData = new FormData(this);
+//         let xhr = new XMLHttpRequest();
+//         xhr.upload.addEventListener("progress", progressHandler);
+//         xhr.open("POST", "/upload");
+//         xhr.responseType = 'json';
 
-        xhr.send(formData);
-        xhr.upload.addEventListener("load", successUpload);
+//         xhr.send(formData);
+//         xhr.upload.addEventListener("load", successUpload);
 
-        //get response from server in json and log it
-        xhr.onreadystatechange = ()=>{
-            if(xhr.readyState == XMLHttpRequest.DONE){
-                completeUpload(xhr.response);
-                log(xhr.response)
-            }
-        };
-    } 
-);
-
+//         //get response from server in json and log it
+//         xhr.onreadystatechange = ()=>{
+//             if(xhr.readyState == XMLHttpRequest.DONE){
+//                 completeUpload(xhr.response);
+//                 log(xhr.response)
+//             }
+//         };
+//     } 
+// );
 function progressHandler(event){
     // let totalSize = event.total;
     // let loadedSize = event.loaded;
