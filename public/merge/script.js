@@ -47,6 +47,8 @@ function postFileNamesToMerge(){
 document.getElementById('submitButton').addEventListener('click', e => {
     forms = document.getElementsByClassName('mergeform')
     btn = document.querySelectorAll("[id^=upload_button_]");
+    inputs = document.querySelectorAll("[id^=merge_upload_]")
+
     for (let form of forms){
         if (form.dataset.addedsubmiteventlistener === 'false'){
             // log('added to ', form)
@@ -74,12 +76,19 @@ document.getElementById('submitButton').addEventListener('click', e => {
     }
     totalFilesToUpload = btn.length;
     totalFilesUploaded = 0;
+
+    //set the filenames array according the ordering of input elements
     uploadedFilenames = [];
+    for(let i = 0; i < inputs.length; i++){
+        let name = inputs[i].value
+        //match a / or \ and letters before it * times
+        name = name.replace(/.*[\/\\]/, '');
+        uploadedFilenames.push(changeNameToTransmit(name))
+    }
     for (let i = 0; i < btn.length; i++){
         btn[i].click()
     }
 })
-
 function progressHandler(event){
     let totalSize = event.total;
     let loadedSize = event.loaded;
@@ -100,7 +109,6 @@ function completeUpload(data){
         totalFilesUploaded+=1;
         // log(totalFilesUploaded)
 
-        uploadedFilenames.push(upFileName)
         // log('created file')
         multiUploadHandler();
         
@@ -112,15 +120,26 @@ function completeUpload(data){
     }
 }
 
+function changeNameToTransmit(name){
+    name = name.replaceAll(' ','-');
+    if (name.length > 25){
+        name = name
+            .substring(0, 21)
+            .concat(".pdf");
+    }
+    return name
+}
+
 const source = new EventSource('/sse');
 source.addEventListener("message", message => {
     let got = JSON.parse(message.data);
     console.log("Got ", got);
+    document.getElementById('info-sse').innerText=got.message;
     
-    if (got.message == "conversion-done"){
+    if (got.message == "merging-completed"){
         //  displayMessage.innerText = "Downloading file, Please wait.\nRefresh page to start again.";
         
-        convertedName = got.name;
+        convertedName = "merged.pdf";
         downloadPDF(convertedName);
     } 
     if(got.message == "processing-file"){
@@ -136,3 +155,35 @@ source.addEventListener("message", message => {
 
     }
 });
+
+function downloadPDF(file){
+    let xhr = new XMLHttpRequest();
+
+
+    xhr.open("GET", `/download?name=${file}`);
+    xhr.send();
+    xhr.responseType = "blob";
+    xhr.onload = function(e) {
+        if (this.status == 200) {
+            // Create a new Blob object using the 
+            //response data of the onload object
+            var blob = new Blob([this.response], {type: 'image/pdf'});
+            //Create a link element, hide it, direct 
+            //it towards the blob, and then 'click' it programatically
+            let a = document.createElement("a");
+            a.style = "display: none";
+            document.body.appendChild(a);
+            //Create a DOMString representing the blob 
+            //and point the link element towards it
+            let url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = 'myFile.pdf';
+            //programatically click the link to trigger the download
+            a.click();
+            //release the reference to the file by revoking the Object URL
+            window.URL.revokeObjectURL(url);
+        }else{
+            //deal with error
+        }
+    }
+}

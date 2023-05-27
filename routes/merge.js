@@ -11,21 +11,33 @@ router.use(express.urlencoded())
 router.get("/", (req, res) => {});
 
 router.post("/", (req, res) => {
-    // sse.sendSse({"message":"merging-files"})
-    log(req.body)
+    sse.sendSse({"message":"merging-files"})
     //merge files
-    res.json(httpObject(httpCode.CREATED))
+    let code = mergeFiles(req.body['filenames'])
+    if (code == true){
+        sse.sendSse({"message":"merging-completed"})
+        res.json(httpObject(httpCode.CREATED))
+    } else {
+        res.json(httpObject(httpCode.INTERNAL_SERVER_ERROR))
+    }
 })
 
 function mergeFiles(filenames){
     if (process.platform == 'win32'){
         log('windows')
-        // let command = `merge.bat ${...filenames}`
-        // require('child_process').execSync(
-        //     command
-        // )
+        let command = `merge.bat ${filenames.join(" ")}`
+        log(command)
+        require('child_process').execSync(
+            command,
+            {
+                cwd: __dirname,
+                stdio: 'inherit'
+            }
+        )
+        return true;
     } else {
         log('other/linux')
+        return false;
     }
 }
 
