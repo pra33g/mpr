@@ -74,6 +74,7 @@ document.getElementById('submitButton').addEventListener('click', e => {
     }
     totalFilesToUpload = btn.length;
     totalFilesUploaded = 0;
+    uploadedFilenames = [];
     for (let i = 0; i < btn.length; i++){
         btn[i].click()
     }
