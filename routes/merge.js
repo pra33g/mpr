@@ -14,13 +14,16 @@ router.post("/", (req, res) => {
     // sse.sendSse({"message":"merging-files"})
     log(req.body)
     //merge files
-    mergeFiles()
     res.json(httpObject(httpCode.CREATED))
 })
 
 function mergeFiles(filenames){
     if (process.platform == 'win32'){
         log('windows')
+        // let command = `merge.bat ${...filenames}`
+        // require('child_process').execSync(
+        //     command
+        // )
     } else {
         log('other/linux')
     }

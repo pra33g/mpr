@@ -34,7 +34,7 @@ app.listen(port, ()=>console.log("http://localhost:" + port));
 
 //log requests
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended:true}));
 app.use("/", (req, res, next)=>{
     log(req.method, req.url, req.body);
     next();

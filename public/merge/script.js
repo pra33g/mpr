@@ -8,7 +8,7 @@ document.getElementById("add-button").addEventListener('click', function(event){
 
     let text = `
     <form class="mergeform" data-addedSubmitEventListener="false" id="form_merge_${nextId}" action="/upload" enctype="multipart/form-data" method="POST" class="signupForm">
-    <input type="file" id="merge_upload_${nextId}" class="inputFields" accept="application/pdf" name="pdfbm_upload" multiple="multiple"><br><br />                        
+    <input type="file" id="merge_upload_${nextId}" class="inputFields" accept="application/pdf" name="pdfbm_upload"><br><br />                        
     <input type="submit" id="upload_button_${nextId}" value="Upload" class="hidden">            
     </form>    
     `
