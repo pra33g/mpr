@@ -1,1 +1,3 @@
 https://is.gd/F4kfCh
+Extract gs.zip in routes/pdfbookmark
+Place ngrok.exe in root directory
