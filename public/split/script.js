@@ -1,3 +1,6 @@
+/*
+    SSE INIT
+*/
 const source = new EventSource('/sse')
 source.addEventListener('message', message => {
     let got = JSON.parse(message.data)
@@ -19,6 +22,10 @@ source.addEventListener('message', message => {
 
     }
 })
+
+/*
+    UPLOAD FILE
+*/
 const info = document.getElementById('info')
 let log = console.log.bind(console)
 let sb = document.getElementById('submit_button')
@@ -39,9 +46,59 @@ suf.addEventListener('submit', e => {
         }
     }
 })
-
+let pages = NaN
+let name = ""
 function successUpload(res){
-    let pages = res.pages
-    let name = res.name
+    pages = res.pages
+    name = res.name
     log(pages, name)
 }
+function showMessage(text){
+    info.innerText = text
+}
+/**
+ * SPLIT INFO
+ * ---------------------ABBV---------------------
+ * SP - Start Page
+ * EP - End Page
+ * ----------------ENFORCED RULES----------------
+ * N can't exceed total number of pages
+ * Initial Load:
+ *  SP_1 is always 1
+ *  EP_1 is max_pages
+ * Creating new nodes (total N nodes)
+ *  EP_N always >= SP_N
+ *  EP_N is always max_pages in PDF
+ *  SP_N is always equal to [EP_(N-1)]+1
+ *  EP_N is governed by: SP_N <= EP_N <= max_pages - n where n is (distance from last node)
+ *  Middle nodes' SP and EP values blank initially, but SP values calculated of Nth node if (N-1)th node's EP value available
+ *  SP of middle nodes disabled always, and autofilled
+ *  EP for any middle node can't be max_pages
+ * Removing Nth node:
+ * set EP_(N-1) = EP_N 
+ *  
+ */
+
+function add(elemParent){
+    // elem is the elem below which new node is added
+    // get total elems in container
+    log(elemParent)
+    let totalNodes = document.getElementById('si-container').childElementCount
+    let nextId = totalNodes + 1
+    html = `
+    <div class="si-node" id="si-node-${nextId}">
+        <input type="number" disabled="true" value="" class="si-sp" id="si-sp-${nextId}">
+        <input type="number" class="si-ep" id="si-ep-${nextId}">
+        <button onclick="add(this.parentElement)" class="si-add" id="si-add-${nextId}">+++</button>
+        <button class="si-rem" id="si-rem-${nextId}">---</button>
+        <br><br>
+    </div>
+    `
+    elemParent.insertAdjacentHTML('afterend', html)
+    //reset ids
+    let allNodes = document.getElementsByClassName('si-node')
+    for (let i = 1; i <= allNodes.length; i++){
+        allNodes[i - 1].id = `si-node-${i}`
+    }
+}
+
