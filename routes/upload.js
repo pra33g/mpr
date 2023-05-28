@@ -69,6 +69,7 @@ router.post("/", async (req, res) => {
                     } else {
                         //file has been saved with name pdf.name
                         log('Created:', pdfPath)
+                        sendSse({'message':"saved-file"})
                         pages = ppageCountPDF(pdfPath, res, pdf.name);
                     }
                 });
