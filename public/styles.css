@@ -8,7 +8,7 @@ p#introMessage{
   margin-left: 800px;
   font-family: 'Sanchez', serif;
   font-size: 125px;
-  color: rgb(96, 255, 90);
+  color: rgb(90, 208, 255);
   /* text-decoration: dotted; */
   text-emphasis-color: #000;
   text-decoration: solid;
@@ -17,10 +17,10 @@ p#introMessage{
 body {
   margin: 0;
   padding: 0;
-  background:rgb(38, 34, 248);
+  /* background:rgb(38, 34, 248); */
   overflow: hidden;
   /* background: #111; */
-  background-image: url("bookmark/sus.png");
+  background-image: url("bookmark/sus3.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -41,7 +41,7 @@ body {
   }
   .image{
     position: relative;
-    margin: 1% 5% 0% 25%;
+    margin: 1% 5% 0% 8%;
     
     height: 246px;
     width: 315px;
@@ -99,7 +99,7 @@ body {
 }
 
 #join-btn {
-  background: rgba(20, 20, 20, .2);
+  background: rgba(0, 0, 0, 0.148);
   border: 1px solid rgb(255, 255, 255);
   font-size: 3rem;
   font-family: Georgia, 'Times New Roman', Times, serif;
@@ -112,22 +112,38 @@ body {
 }
 
 #join-btn:hover {
-  background: rgba(0, 28, 70, 0.324);
   padding: 10px 80px;
-  color: #77ebff;
-  border: 1px solid #77ebff;
-
+  background: rgba(0, 0, 0, 0.148);
+  border: 1px solid rgb(255, 255, 255);
 }
 
+#merge-btn {
+  background: rgba(0, 0, 0, 0.148);
+  border: 1px solid rgb(255, 255, 255);
+  font-size: 3rem;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: white;
+  /* margin-top: 20px; */
+  padding: 10px 50px;
+  cursor: pointer;
+  transition: .4s;
+  
+}
+
+#merge-btn:hover {
+  padding: 10px 80px;  
+  background: rgba(0, 0, 0, 0.148);
+  border: 1px solid rgb(255, 255, 255);
+}
 
 
 /* 
  */
  h1 {
   --s: 0.0em;  /*the thickness of the line*/
-  --c: #86d7ff; /* the color */
+  --c: white; /* the color */
   
-  color: rgba(236, 236, 236, 0);
+  color: rgba(255, 255, 255, 0);
   padding-bottom: var(--s);
   background: 
     linear-gradient(90deg,var(--c) 50%,rgb(255, 255, 255) 0) calc(100% - var(--_p,0%))/200% 100%,
@@ -150,6 +166,6 @@ h1 {
   font-family: system-ui, sans-serif;
   font-size: 5rem;
   cursor: pointer;
-  margin-top: 50px;
+  margin-top: 265px;
   margin-left: 50px;
 }

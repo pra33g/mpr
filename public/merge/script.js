@@ -135,6 +135,7 @@ source.addEventListener("message", message => {
     let got = JSON.parse(message.data);
     console.log("Got ", got);
     document.getElementById('info-sse').innerText=got.message;
+    log("hehe")
     
     if (got.message == "merging-completed"){
         //  displayMessage.innerText = "Downloading file, Please wait.\nRefresh page to start again.";
