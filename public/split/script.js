@@ -47,11 +47,11 @@ suf.addEventListener('submit', e => {
     }
 })
 let pages = NaN
-let name = ""
+let pdfname = ""
 function successUpload(res){
     pages = res.pages
-    name = res.name
-    log(pages, name)
+    pdfname = res.name
+    log(pages, pdfname)
 }
 function showMessage(text){
     info.innerText = text
@@ -89,7 +89,7 @@ function add(elemParent){
     <div class="si-node" id="si-node-${nextId}">
         <input type="number" disabled="true" value="" class="si-sp" id="si-sp-${nextId}">
         <input type="number" class="si-ep" id="si-ep-${nextId}">
-        <button onclick="add(this.parentElement)" class="si-add" id="si-add-${nextId}">+++</button>
+        <button onclick="addSupervisor(this.parentElement)" class="si-add" id="si-add-${nextId}">+++</button>
         <button class="si-rem" id="si-rem-${nextId}">---</button>
         <br><br>
     </div>
@@ -101,4 +101,18 @@ function add(elemParent){
         allNodes[i - 1].id = `si-node-${i}`
     }
 }
+// unsupervisedMode -> true -> number of partitions not limited
+// unsupervisedMode -> false -> number of partitions are limited
+let unsupervisedMode = true
+function addSupervisor(elemParent){
+    let totalNodes = document.getElementById('si-container').childElementCount
+    // remove this line
+    pages = 5
+    // remove this line
+    if (unsupervisedMode || totalNodes < pages){
+        add(elemParent)
+    }
+}
 
+
+// 
