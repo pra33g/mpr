@@ -1,3 +1,4 @@
+
 /*
     SSE INIT
 */
@@ -85,7 +86,6 @@ function showMessage(text){
 function add(elemParent){
     // elem is the elem below which new node is added
     // get total elems in container
-    log(elemParent)
     let totalNodes = document.getElementById('si-container').childElementCount
     let nextId = totalNodes + 1
     html = `
@@ -102,18 +102,25 @@ function add(elemParent){
     let allNodes = document.getElementsByClassName('si-node')
     for (let i = 1; i <= allNodes.length; i++){
         allNodes[i - 1].id = `si-node-${i}`
+        let node = document.getElementById(`si-node-${i}`)
+        node.getElementsByClassName('si-ep')[0].id = `si-ep-${i}`
+        node.getElementsByClassName('si-sp')[0].id = `si-sp-${i}`
+        node.getElementsByClassName('si-add')[0].id = `si-add-${i}`
+        node.getElementsByClassName('si-rem')[0].id = `si-rem-${i}`
     }
 }
 // unsupervisedMode -> true -> number of partitions not limited
 // unsupervisedMode -> false -> number of partitions are limited
-let unsupervisedMode = true
+let unsupervisedMode = !document.getElementById('mode-selector').checked
+log(unsupervisedMode)
 function addSupervisor(elemParent, elem){
     let totalNodes = document.getElementById('si-container').childElementCount
     if (unsupervisedMode || totalNodes < pages){
         add(elemParent)
         //get current node's ep value
-        calcSP(elemParent.getElementsByClassName(`si-ep`)[0])
     }
+    log('sp on ', elem)
+    calcSP(elemParent.getElementsByClassName(`si-ep`)[0])
 }
 function inputSupervisor(elem){
     let totalNodes = document.getElementById('si-container').childElementCount
@@ -143,6 +150,7 @@ function inputSupervisor(elem){
             showMessage(`Value for this page can't exceed ${max}`)
         }
     }
+    
     calcSP(elem)
 }
 function calcSP(elem){
@@ -151,7 +159,6 @@ function calcSP(elem){
     no = Number(node_sp.id.match(/si-sp-\d+/)[0].match(/\d$/)[0])
     nextNodeNo = no + 1
     let totalNodes = document.getElementById('si-container').childElementCount
-    log(nextNodeNo, totalNodes)
     if (nextNodeNo <= totalNodes){
         next_sp = elem.parentElement.parentElement.querySelectorAll(`#si-sp-${nextNodeNo}`)[0]
         next_sp.value = Number(elem.value) + 1
@@ -162,4 +169,23 @@ document.getElementById('mode-selector').onclick = (ev) => {
     elem = ev.currentTarget
     unsupervisedMode = !elem.checked
     showMessage(`Supervised mode ${elem.checked ? "on" : "off" }`)
+    checker(ev)
+}
+
+function checker(ev) {
+    elem = ev.currentTarget
+    let sup = elem.checked
+    if (sup){
+        let cont = document.getElementById('si-container')
+        let totalNodes = cont.childElementCount
+        let extra = (totalNodes - pages)
+        for (let i = 0; i < extra; i++){
+            let arr = cont.getElementsByClassName('si-node')
+            let len = arr.length 
+            let lc = (arr[len-(i+1)])
+            cont.removeChild(lc)
+        }
+
+
+    }
 }
