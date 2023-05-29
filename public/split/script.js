@@ -113,6 +113,7 @@ function add(elemParent){
 // unsupervisedMode -> false -> number of partitions are limited
 let unsupervisedMode = !document.getElementById('mode-selector').checked
 log(unsupervisedMode)
+switchSP(unsupervisedMode)
 function addSupervisor(elemParent, elem){
     let totalNodes = document.getElementById('si-container').childElementCount
     if (unsupervisedMode || totalNodes < pages){
@@ -158,6 +159,7 @@ function calcSP(elem){
     node_sp = elem.parentElement.getElementsByClassName('si-sp')[0]
     no = Number(node_sp.id.match(/si-sp-\d+/)[0].match(/\d$/)[0])
     nextNodeNo = no + 1
+    // log(nextNodeNo)
     let totalNodes = document.getElementById('si-container').childElementCount
     if (nextNodeNo <= totalNodes){
         next_sp = elem.parentElement.parentElement.querySelectorAll(`#si-sp-${nextNodeNo}`)[0]
@@ -169,6 +171,7 @@ document.getElementById('mode-selector').onclick = (ev) => {
     elem = ev.currentTarget
     unsupervisedMode = !elem.checked
     showMessage(`Supervised mode ${elem.checked ? "on" : "off" }`)
+    switchSP(!elem.checked)
     checker(ev)
 }
 
@@ -185,7 +188,13 @@ function checker(ev) {
             let lc = (arr[len-(i+1)])
             cont.removeChild(lc)
         }
+    }
+}
 
-
+function switchSP(bool){
+    let spnodes = document.getElementsByClassName('si-sp')
+    for (let spn of spnodes){
+        log(spn)
+        spn.disabled = !bool
     }
 }
