@@ -47,6 +47,9 @@ suf.addEventListener('submit', e => {
     }
 })
 let pages = NaN
+//
+pages = 5
+//
 let pdfname = ""
 function successUpload(res){
     pages = res.pages
@@ -88,7 +91,7 @@ function add(elemParent){
     html = `
     <div class="si-node" id="si-node-${nextId}">
         <input type="number" disabled="true" value="" class="si-sp" id="si-sp-${nextId}">
-        <input type="number" class="si-ep" id="si-ep-${nextId}">
+        <input onblur="inputSupervisor(this)" type="number" class="si-ep" id="si-ep-${nextId}">
         <button onclick="addSupervisor(this.parentElement)" class="si-add" id="si-add-${nextId}">+++</button>
         <button class="si-rem" id="si-rem-${nextId}">---</button>
         <br><br>
@@ -106,13 +109,35 @@ function add(elemParent){
 let unsupervisedMode = true
 function addSupervisor(elemParent){
     let totalNodes = document.getElementById('si-container').childElementCount
-    // remove this line
-    pages = 5
-    // remove this line
     if (unsupervisedMode || totalNodes < pages){
         add(elemParent)
     }
 }
+function inputSupervisor(elem){
+    let totalNodes = document.getElementById('si-container').childElementCount
+    
+    node_ep = elem
+    node_sp = elem.parentElement.getElementsByClassName('si-sp')[0]
+    no = node_sp.id.match(/si-sp-\d+/)[0].match(/\d$/)[0]
 
+    let sp =  node_sp.value
+    let ep = Number((node_ep.value))
+    
+    if (ep == 0){
+        showMessage('Enter valid value. 0 is not valid')
+        node_ep.value = 0
+    }
+    else {
+        showMessage(`Part:${sp}-${ep}`)
+    }
+    if (unsupervisedMode){
+        let max = pages - (totalNodes - no)
+        if (ep > max){
+            node_ep.value = max
+            showMessage(`Value for end page can't exceed ${max}`)
+        }
+    }
+}
+function calcSP(elem){
 
-// 
+}
