@@ -93,7 +93,7 @@ function add(elemParent){
         <input type="number" disabled="true" value="" class="si-sp" id="si-sp-${nextId}">
         <input onblur="inputSupervisor(this)" type="number" class="si-ep" id="si-ep-${nextId}">
         <button onclick="addSupervisor(this.parentElement, this)" class="si-add" id="si-add-${nextId}">+++</button>
-        <button class="si-rem" id="si-rem-${nextId}">---</button>
+        <button onclick="removeNode(this)" class="si-rem" id="si-rem-${nextId}">---</button>
         <br><br>
     </div>
     `
@@ -108,19 +108,23 @@ function add(elemParent){
         node.getElementsByClassName('si-add')[0].id = `si-add-${i}`
         node.getElementsByClassName('si-rem')[0].id = `si-rem-${i}`
     }
+    setSP()
 }
 // unsupervisedMode -> true -> number of partitions not limited
 // unsupervisedMode -> false -> number of partitions are limited
-let unsupervisedMode = !document.getElementById('mode-selector').checked
-log(unsupervisedMode)
-switchSP(unsupervisedMode)
+let checked = document.getElementById('mode-selector').checked
+let unsupervisedMode = !checked
+log(checked, unsupervisedMode)
+// switchSP(unsupervisedMode)
 function addSupervisor(elemParent, elem){
     let totalNodes = document.getElementById('si-container').childElementCount
     if (unsupervisedMode || totalNodes < pages){
         add(elemParent)
         //get current node's ep value
+    } 
+    if (totalNodes == pages){
+        showMessage('Number of partitions can not exceed total page count')
     }
-    log('sp on ', elem)
     calcSP(elemParent.getElementsByClassName(`si-ep`)[0])
 }
 function inputSupervisor(elem){
@@ -155,6 +159,9 @@ function inputSupervisor(elem){
     calcSP(elem)
 }
 function calcSP(elem){
+    if (unsupervisedMode){
+        return
+    }
     node_ep = elem
     node_sp = elem.parentElement.getElementsByClassName('si-sp')[0]
     no = Number(node_sp.id.match(/si-sp-\d+/)[0].match(/\d$/)[0])
@@ -194,7 +201,19 @@ function checker(ev) {
 function switchSP(bool){
     let spnodes = document.getElementsByClassName('si-sp')
     for (let spn of spnodes){
-        log(spn)
         spn.disabled = !bool
     }
 }
+function setSP(){
+    let spnodes = document.getElementsByClassName('si-sp')
+    log( "sp is",!unsupervisedMode)
+    for (let spn of spnodes){
+        spn.disabled = !unsupervisedMode
+    }
+}
+function removeNode(elem){
+    let id = elem.id
+    let cont = elem.parentElement.parentElement
+    cont.removeChild(elem.parentElement)
+}
+setSP()

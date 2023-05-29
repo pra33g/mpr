@@ -10,14 +10,24 @@
             <input id="submit_button" type="submit" value="Upload" class="">
         </form>
     </div>
-    :Supervised Mode:<input id="mode-selector" type="checkbox" checked="true">
+    <div id="mode-selector-heading" class="tooltip">
+        :Supervised Mode:<input id="mode-selector" type="checkbox">
+        <span class="tooltiptext">
+            <ul>
+                <li>Partition a file properly [eg: 3 partitions 1-2, 2-5, 5-10]</li>
+                <li>Calculate first page of next partition automatically</li>
+            </ul>
+        </span>
+
+    </div>
+    
     <div id="split-info-dl-phase">
         <div id="si-container">
             <div class="si-node" id="si-node-1">
                 <input type="number" disabled="true" value="1" class="si-sp" id="si-sp-1">
                 <input  onblur="inputSupervisor(this)" type="number" value="0" class="si-ep" id="si-ep-1">
                 <button onclick="addSupervisor(this.parentElement, this)" class="si-add" id="si-add-1">+++</button>
-                <button class="si-rem" id="si-rem-1">---</button>
+                <button onclick="removeNode(this)" disabled="true" class="si-rem" id="si-rem-1">---</button>
                 <br><br>
             </div>
         </div>
