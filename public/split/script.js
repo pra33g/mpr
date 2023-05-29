@@ -92,7 +92,7 @@ function add(elemParent){
     <div class="si-node" id="si-node-${nextId}">
         <input type="number" disabled="true" value="" class="si-sp" id="si-sp-${nextId}">
         <input onblur="inputSupervisor(this)" type="number" class="si-ep" id="si-ep-${nextId}">
-        <button onclick="addSupervisor(this.parentElement)" class="si-add" id="si-add-${nextId}">+++</button>
+        <button onclick="addSupervisor(this.parentElement, this)" class="si-add" id="si-add-${nextId}">+++</button>
         <button class="si-rem" id="si-rem-${nextId}">---</button>
         <br><br>
     </div>
@@ -107,10 +107,12 @@ function add(elemParent){
 // unsupervisedMode -> true -> number of partitions not limited
 // unsupervisedMode -> false -> number of partitions are limited
 let unsupervisedMode = true
-function addSupervisor(elemParent){
+function addSupervisor(elemParent, elem){
     let totalNodes = document.getElementById('si-container').childElementCount
     if (unsupervisedMode || totalNodes < pages){
         add(elemParent)
+        //get current node's ep value
+        calcSP(elemParent.getElementsByClassName(`si-ep`)[0])
     }
 }
 function inputSupervisor(elem){
@@ -127,17 +129,37 @@ function inputSupervisor(elem){
         showMessage('Enter valid value. 0 is not valid')
         node_ep.value = 0
     }
+    if (ep > pages){
+        node_ep.value = pages
+        showMessage('End page value can not exceed max pages count')
+    }
     else {
         showMessage(`Part:${sp}-${ep}`)
     }
-    if (unsupervisedMode){
+    if (!unsupervisedMode){
         let max = pages - (totalNodes - no)
         if (ep > max){
             node_ep.value = max
-            showMessage(`Value for end page can't exceed ${max}`)
+            showMessage(`Value for this page can't exceed ${max}`)
         }
     }
+    calcSP(elem)
 }
 function calcSP(elem){
+    node_ep = elem
+    node_sp = elem.parentElement.getElementsByClassName('si-sp')[0]
+    no = Number(node_sp.id.match(/si-sp-\d+/)[0].match(/\d$/)[0])
+    nextNodeNo = no + 1
+    let totalNodes = document.getElementById('si-container').childElementCount
+    log(nextNodeNo, totalNodes)
+    if (nextNodeNo <= totalNodes){
+        next_sp = elem.parentElement.parentElement.querySelectorAll(`#si-sp-${nextNodeNo}`)[0]
+        next_sp.value = Number(elem.value) + 1
+    }
+}
 
+document.getElementById('mode-selector').onclick = (ev) => {
+    elem = ev.currentTarget
+    unsupervisedMode = !elem.checked
+    showMessage(`Supervised mode ${elem.checked ? "on" : "off" }`)
 }
