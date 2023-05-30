@@ -1,5 +1,6 @@
 node_modules
 routes/upload/*.pdf
+routes/upload/*.lnk
 routes/pdfbm/gs
 .#*
 #*#
