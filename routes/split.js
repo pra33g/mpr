@@ -25,13 +25,25 @@ function handleData(data){
         let pname = `${strippedName}-part-${i}.pdf`
         partNames.push(pname)
     }
+    if (process.platform == 'win32'){
+        let command = `split_shortcut.bat`
+        log(command)
+        let run = require('child_process').execSync(
+            command,
+            {
+                cwd: __dirname,
+                stdio: 'inherit'
+            }
+        )        
+    }
     for (let i = 0; i < totalParts; i++){
         sp = data.split_info[i].sp
         ep = data.split_info[i].ep
         log(sp, ep, partNames[i])
         splitFile(sp, ep, fname, partNames[i])
+        sendSse({'message':`Created part ${i+1}`})
     }
-    let js = JSON.stringify({'message':'created-parts' ,'partnames':partNames})
+    let js = {'message':'created-parts' ,'partnames':partNames}
     sendSse(js)
 
     return httpCode.ACCEPTED
@@ -40,7 +52,7 @@ function handleData(data){
 function splitFile(sp, ep, input_fname, output_fname){
     if (process.platform == 'win32'){
         log('windows')
-        let command = `split.bat `
+        let command = `split.bat ${sp} ${ep} ${input_fname} ${output_fname}`
         log(command)
         let run = require('child_process').execSync(
             command,
