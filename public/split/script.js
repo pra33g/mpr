@@ -30,6 +30,7 @@ const info = document.getElementById('info')
 let log = console.log.bind(console)
 let sb = document.getElementById('submit_button')
 let suf = document.getElementById('split-upload-form')
+let sendBtn = document.getElementById('send-split-data')
 suf.addEventListener('submit', e => {
     e.preventDefault()
     let xhr = new XMLHttpRequest()
@@ -55,6 +56,9 @@ function successUpload(res){
     pages = res.pages
     pdfname = res.name
     log(pages, pdfname)
+    totalNodes = document.getElementById('si-container').childElementCount
+    sendBtn.innerText = `Split ${pdfname} into ${totalNodes} part(s)`
+
 }
 function showMessage(text){
     info.innerText = text
@@ -107,6 +111,8 @@ function add(elemParent){
         node.getElementsByClassName('si-rem')[0].id = `si-rem-${i}`
     }
     setSP()
+    sendBtn.innerText = `Split ${pdfname} into ${allNodes.length} part(s)`
+
 }
 // unsupervisedMode -> true -> number of partitions not limited
 // unsupervisedMode -> false -> number of partitions are limited
@@ -241,6 +247,8 @@ function removeNode(elem){
         node.getElementsByClassName('si-add')[0].id = `si-add-${i}`
         node.getElementsByClassName('si-rem')[0].id = `si-rem-${i}`
     }
+    sendBtn.innerText = `Split ${pdfname} into ${allNodes.length} part(s)`
+
 }
 /**
  * Check splitting data before sending
