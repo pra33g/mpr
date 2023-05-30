@@ -35,7 +35,7 @@ suf.addEventListener('submit', e => {
     e.preventDefault()
     let xhr = new XMLHttpRequest()
     xhr.upload.addEventListener('progress',function (event){
-        log(event.total, event.loaded)
+        showMessage(`${Number(event.total/ event.loaded * 100).toFixed(0)}%`)
     })
     xhr.open("POST", "/upload")
     xhr.responseType = 'json'
