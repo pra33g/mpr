@@ -4,15 +4,18 @@
 */
 const source = new EventSource('/sse')
 source.addEventListener('message', message => {
-    let got = JSON.parse(message.data)
-    log("Got:", got)
+    let got = JSON.parse(JSON.parse(message.data))
+    log("Got:", got.message)
+    showMessage(got.message)
     if (got.message == "saved-file"){
         // document.getElementById('upload-phase').classList.add('hidden')
         log('HIDE UPLOAD FORM and remove this message')
     } 
-    if(got.message == "processing-file"){
+    if(got.message == "created-parts"){
         // displayMessage.innerText = "Server is processing file, please wait.";
-        
+        log(got.partnames)
+        showMessage('Created parts. Downloading')
+        downloadParts(got.partnames)
     }
     if(got.message == "pages"){
         // displayMessage.innerText = `Pages: ${pages}`;
@@ -20,9 +23,10 @@ source.addEventListener('message', message => {
     }
     if(got.message == "Format unacceptable"){
         // displayMessage.innerText = `Format unacceptable`;
-
+        showMessage = `Format unacceptable`
     }
 })
+
 /*
     UPLOAD FILE
 */
@@ -56,6 +60,7 @@ function successUpload(res){
     pages = res.pages
     pdfname = res.name
     log(pages, pdfname)
+    showMessage(`PDF with ${pages} pages uploaded.`)
     totalNodes = document.getElementById('si-container').childElementCount
     sendBtn.innerText = `Split ${pdfname} into ${totalNodes} part(s)`
 
@@ -126,7 +131,7 @@ function addSupervisor(elemParent, elem){
         //get current node's ep value
     } 
     if (totalNodes == pages){
-        showMessage('Number of partitions can not exceed total page count')
+        showMessage(`Number of partitions can not exceed total page count ${pages}`)
     }
     calcSP(elemParent.getElementsByClassName(`si-ep`)[0])
 }
@@ -146,7 +151,7 @@ function inputSupervisor(elem){
     }
     if (ep > pages){
         node_ep.value = pages
-        showMessage('End page value can not exceed max pages count')
+        showMessage(`End page value can not exceed max pages count (${pages})`)
     }
     if (ep > 0 && ep <= pages) {
         showMessage(`Part:${sp}-${ep}`)
@@ -186,7 +191,7 @@ function calcSP(elem){
         next_sp = elem.parentElement.parentElement.querySelectorAll(`#si-sp-${nextNodeNo}`)[0]
         next_ep = elem.parentElement.parentElement.querySelectorAll(`#si-ep-${nextNodeNo}`)[0]
         next_sp.value = Number(elem.value) + 1
-        next_ep.value = Number(elem.value) + 1
+        // next_ep.value = Number(elem.value) + 1
     }
 }
 document.getElementById('mode-selector').onclick = (ev) => {
@@ -259,8 +264,11 @@ function checkInput(){
     let totalNodes = cont.childElementCount
     let flag = true
     for (let i = 1; i <= totalNodes; i++){
-        let sp = document.getElementById(`si-sp-${i}`).val
-        let ep = document.getElementById(`si-ep-${i}`).val
+        let sp = document.getElementById(`si-sp-${i}`).value
+        let ep = document.getElementById(`si-ep-${i}`).value
+        log(sp, ep)
+        sp=Number(sp)
+        ep=Number(ep)
         if (sp <= 0 || ep <= 0){
             showMessage(`Page number invalid (Part ${i})`)
             flag = false
@@ -268,6 +276,12 @@ function checkInput(){
         if (sp > ep){
             showMessage(`Start page can't exceed end page (Part ${i})`)
             flag = false
+
+        }
+        if (sp > pages || ep > pages){
+            showMessage(`Start page can't exceed end page (Part ${i})`)
+            flag = false
+            
         }
     }
     return flag
@@ -276,10 +290,13 @@ function checkInput(){
  * send split data
 */
 function sendData(){
-    if (checkInput() == true){
+    let correct = checkInput()
+    if (correct == true){
+        showMessage('Sending data to server.')
         let cont = document.getElementById('si-container')
         let totalNodes = cont.childElementCount
         let data = {'split_info':[]}
+        data.name = pdfname
         for (let i = 1; i <= totalNodes; i++){
 
             let sp = document.getElementById(`si-sp-${i}`)
@@ -294,9 +311,25 @@ function sendData(){
                 "Content-type": "application/json; charset=UTF-8",
             }
         })
-        .then(response=>console.log(response))
+        .then(response=>{
+            return response
+        })
         .then(response=>console.log(response))
     }
 }  
 
 
+function downloadParts(partNames){
+    for(let f of partNames){
+        log('dl', f)
+        fetch(`/download?name=${f}`)
+        .then(res => res.blob())
+        .then(data => {
+            let a =  document.createElement('a')
+            a.href = window.URL.createObjectURL(data);
+            a.download = f;
+            a.click(); 
+            a.remove()
+        })
+    }
+}

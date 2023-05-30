@@ -1,0 +1,1 @@
+gs -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dFirstPage=$1 -dLastPage=$2 -sOutputFile=$4 $3

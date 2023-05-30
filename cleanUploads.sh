@@ -1,1 +1,1 @@
-rm ./routes/upload/*
+rm ./routes/upload/*pdf

@@ -48,6 +48,12 @@ router.post("/", async (req, res) => {
             const pdf = req.files.pdfbm_upload;
             const origName = pdf.name;
             pdf.name = pdf.name.replaceAll(' ','-');
+            pdf.name = pdf.name.replaceAll('\'','');
+            pdf.name = pdf.name.replaceAll('"','');
+            pdf.name = pdf.name.replaceAll(',','');
+            if (pdf.name.length == 0) {
+                res.sendStatus(400)
+            }
             if (pdf.name.length > 25){
                 pdf.name = pdf.name
                     .substring(0, 21)
