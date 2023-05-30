@@ -259,15 +259,19 @@ function checkInput(){
     let totalNodes = cont.childElementCount
     let flag = true
     for (let i = 1; i <= totalNodes; i++){
-        let sp = document.getElementById(`si-sp-${i}`).val
-        let ep = document.getElementById(`si-ep-${i}`).val
+        let sp = document.getElementById(`si-sp-${i}`).value
+        let ep = document.getElementById(`si-ep-${i}`).value
+        log('checking', sp, ep)
         if (sp <= 0 || ep <= 0){
             showMessage(`Page number invalid (Part ${i})`)
             flag = false
+            log('here')
         }
         if (sp > ep){
             showMessage(`Start page can't exceed end page (Part ${i})`)
             flag = false
+            log('here')
+
         }
     }
     return flag
@@ -276,7 +280,10 @@ function checkInput(){
  * send split data
 */
 function sendData(){
-    if (checkInput() == true){
+    let correct = checkInput()
+    log(correct)
+    if (correct == true){
+        log('input checked')
         let cont = document.getElementById('si-container')
         let totalNodes = cont.childElementCount
         let data = {'split_info':[]}
