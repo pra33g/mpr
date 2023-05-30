@@ -5,7 +5,6 @@
 const source = new EventSource('/sse')
 source.addEventListener('message', message => {
     let got = (JSON.parse(message.data))
-    log(message)
     log("Got:", got.message)
     showMessage(got.message)
     if (got.message == "saved-file"){
@@ -24,7 +23,7 @@ source.addEventListener('message', message => {
     }
     if(got.message == "Format unacceptable"){
         // displayMessage.innerText = `Format unacceptable`;
-        showMessage = `Format unacceptable`
+        showMessage(`Format unacceptable`)
     }
 })
 
@@ -48,7 +47,11 @@ suf.addEventListener('submit', e => {
     xhr.onreadystatechange = () => {
         if(xhr.readyState == XMLHttpRequest.DONE){
             log(xhr.response)
-            successUpload(xhr.response);
+            if (xhr.response.http == 201){
+                successUpload(xhr.response);
+            } else {
+                showMessage(xhr.response.reason)
+            }
         }
     }
 })
@@ -64,7 +67,24 @@ function successUpload(res){
     showMessage(`PDF with ${pages} pages uploaded.`)
     totalNodes = document.getElementById('si-container').childElementCount
     sendBtn.innerText = `Split ${pdfname} into ${totalNodes} part(s)`
+    hideUploadPanel()
+    showSplitInfoPanel()
 
+}
+function hideSplitInfoPanel(){
+    document.getElementById('split-info-dl-phase').classList.add('hidden')
+}
+function showSplitInfoPanel(){
+    document.getElementById('split-info-dl-phase').classList.remove('hidden')
+}
+function hideUploadPanel(){
+    let up = document.getElementById('upload-phase')
+    let cl = up.classList
+    let rm = cl.add('hidden')
+    log(cl, rm)
+}
+function showUploadPanel(){
+    document.getElementById('upload-phase').classList.remove('hidden')
 }
 function showMessage(text){
     info.innerText = text
@@ -293,7 +313,7 @@ function checkInput(){
 function sendData(){
     let correct = checkInput()
     if (correct == true){
-        showMessage('Sending data to server.')
+        showMessage('Server is processing file...')
         let cont = document.getElementById('si-container')
         let totalNodes = cont.childElementCount
         let data = {'split_info':[]}
@@ -315,7 +335,7 @@ function sendData(){
         .then(response=>{
             return response
         })
-        .then(response=>console.log(response))
+        .then(response=>console.log(response.text))
     }
 }  
 
