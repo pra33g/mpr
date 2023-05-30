@@ -261,16 +261,13 @@ function checkInput(){
     for (let i = 1; i <= totalNodes; i++){
         let sp = document.getElementById(`si-sp-${i}`).value
         let ep = document.getElementById(`si-ep-${i}`).value
-        log('checking', sp, ep)
         if (sp <= 0 || ep <= 0){
             showMessage(`Page number invalid (Part ${i})`)
             flag = false
-            log('here')
         }
         if (sp > ep){
             showMessage(`Start page can't exceed end page (Part ${i})`)
             flag = false
-            log('here')
 
         }
     }
@@ -281,9 +278,7 @@ function checkInput(){
 */
 function sendData(){
     let correct = checkInput()
-    log(correct)
     if (correct == true){
-        log('input checked')
         let cont = document.getElementById('si-container')
         let totalNodes = cont.childElementCount
         let data = {'split_info':[]}
