@@ -278,8 +278,16 @@ function sendData(){
             let ep = document.getElementById(`si-ep-${i}`)
             data.split_info.push({'sp':Number(sp.value), 'ep': Number(ep.value)})
         }
-        log(data)
-        
+        console.log(data)
+        fetch('/split', {
+            method:'POST',
+            body:JSON.stringify(data),
+            headers:{
+                "Content-type": "application/json; charset=UTF-8",
+            }
+        })
+        .then(response=>console.log(response))
+        .then(response=>console.log(response))
     }
 }  
 
