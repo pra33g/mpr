@@ -14,7 +14,7 @@ const router = express.Router();
 const log = console.log.bind(console);
 
 router.use(express.json());
-router.use(express.urlencoded());
+router.use(express.urlencoded({extended:true}));
 
 router.get("/", (req, res) => {
 
