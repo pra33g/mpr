@@ -24,7 +24,7 @@
     <div id="split-info-dl-phase">
         <div id="si-container">
             <div class="si-node" id="si-node-1">
-                <input type="number" disabled="true" value="1" class="si-sp" id="si-sp-1">
+                <input onblur="inputSupervisor_sp(this)" type="number" disabled="true" value="1" class="si-sp" id="si-sp-1">
                 <input  onblur="inputSupervisor(this)" type="number" value="0" class="si-ep" id="si-ep-1">
                 <button onclick="addSupervisor(this.parentElement, this)" class="si-add" id="si-add-1">+++</button>
                 <button onclick="removeNode(this)" disabled="true" class="si-rem" id="si-rem-1">---</button>

@@ -88,7 +88,7 @@ function add(elemParent){
     let nextId = totalNodes + 1
     html = `
     <div class="si-node" id="si-node-${nextId}">
-        <input type="number" disabled="true" value="" class="si-sp" id="si-sp-${nextId}">
+        <input onblur="inputSupervisor_sp(this)" type="number" disabled="true" value="" class="si-sp" id="si-sp-${nextId}">
         <input onblur="inputSupervisor(this)" type="number" class="si-ep" id="si-ep-${nextId}">
         <button onclick="addSupervisor(this.parentElement, this)" class="si-add" id="si-add-${nextId}">+++</button>
         <button onclick="removeNode(this)" class="si-rem" id="si-rem-${nextId}">---</button>
@@ -154,6 +154,17 @@ function inputSupervisor(elem){
     }
     
     calcSP(elem)
+}
+function inputSupervisor_sp(elem){
+    let val = Number(elem.value)
+    if (val <= 0){
+        showMessage('Invalid value for page number')
+        elem.value = 1
+    }
+    if (val > pages){
+        showMessage(`Can not exceed max page number count - ${pages}`)
+        elem.value = 1
+    }
 }
 function calcSP(elem){
     if (unsupervisedMode){
