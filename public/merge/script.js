@@ -122,6 +122,10 @@ function completeUpload(data){
 
 function changeNameToTransmit(name){
     name = name.replaceAll(' ','-');
+    name = name.replaceAll('\'','');
+    name = name.replaceAll('"','');
+    name = name.replaceAll(',','');
+
     if (name.length > 25){
         name = name
             .substring(0, 21)
