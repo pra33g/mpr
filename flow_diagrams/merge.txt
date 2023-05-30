@@ -1,0 +1,6 @@
+<!-- 
+    1. upload files from client side
+    2. merge files in order specified
+    3. report when file created
+    4. download file client side
+ -->
