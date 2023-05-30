@@ -66,7 +66,7 @@ function successUpload(res){
     log(pages, pdfname)
     showMessage(`PDF with ${pages} pages uploaded.`)
     totalNodes = document.getElementById('si-container').childElementCount
-    sendBtn.innerText = `Split ${pdfname} into ${totalNodes} part(s)`
+    sendBtn.innerText = `Click to split ${pdfname} into ${totalNodes} part(s)`
     hideUploadPanel()
     showSplitInfoPanel()
 
@@ -255,7 +255,6 @@ function switchSP(bool){
 }
 function setSP(){
     let spnodes = document.getElementsByClassName('si-sp')
-    log( "sp is",!unsupervisedMode)
     for (let spn of spnodes){
         spn.disabled = !unsupervisedMode
     }
@@ -353,4 +352,12 @@ function downloadParts(partNames){
             a.remove()
         })
     }
+}
+/**
+ * Reset
+ */
+
+function resetPage(){
+    suf.reset();
+    window.location.reload()
 }
