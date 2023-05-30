@@ -1,24 +1,31 @@
 const express = require('express')
 const sse = require('./sse.js')
+const { send } = require('process')
 const router = express.Router()
 const httpCode = require('http-status-codes').StatusCodes
 const log = console.log.bind(console)
 const httpReason = require('http-status-codes').getReasonPhrase
 
 router.use(express.json())
-router.use(express.urlencoded())
+router.use(express.urlencoded({extended:true}))
 
 router.get("/", (req, res) => {});
 
 router.post("/", (req, res) => {
     sse.sendSse({"message":"merging-files"})
     //merge files
-    let code = mergeFiles(req.body['filenames'])
-    if (code == true){
-        sse.sendSse({"message":"merging-completed"})
-        res.json(httpObject(httpCode.CREATED))
-    } else {
-        res.json(httpObject(httpCode.INTERNAL_SERVER_ERROR))
+    try{
+
+        let code = mergeFiles(req.body['filenames'])
+        if (code == true){
+            sse.sendSse({"message":"merging-completed"})
+            res.json(httpObject(httpCode.CREATED))
+        } else {
+            res.json(httpObject(httpCode.INTERNAL_SERVER_ERROR))
+        }
+    } catch (e){
+        log(e)
+        sse.sendSse({"message":"merge-failed"})
     }
 })
 
@@ -35,9 +42,20 @@ function mergeFiles(filenames){
             }
         )
         return true;
-    } else {
+    } else if (process.platform == 'linux') {
         log('other/linux')
-        return false;
+        let command = `./merge.sh ${filenames.join(" ")}`
+        require('child_process').execSync(
+            command,
+            {
+                cwd: __dirname+"/upload/",
+                stdio: 'inherit'
+            }
+        )        
+        return true;
+    } else {
+        sse.sendSse('Unsupported server OS')
+        return false
     }
 }
 

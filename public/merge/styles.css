@@ -1,3 +1,107 @@
+*{
+    margin: 0;
+    padding: 0;
+}
 .hidden{
     display: none;
+}
+body{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: white;
+    overflow: hidden;
+    background-image: url("../bookmark/sus3.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#signup-section{
+    background-size:cover;
+    background-repeat: no-repeat;
+    position: relative;
+    margin-top: 18%;
+    margin-left: 50%;
+    transform: translate(-50%, -50%);
+    width: 118rem;
+    height: 57rem;
+    text-align: center;
+    display: flex;
+    color: white;
+    box-shadow: 3px 10px 20px 5px rgba(0, 0, 0, 0.5);
+}
+h2{
+    display: flex;
+    padding: 50px;
+    justify-content: center;
+}
+
+#add-button{
+    padding: 35px;
+    height: fit-content;
+    width: 20%;
+    margin-top: 20%;
+    margin-left: 3%;
+    border: 1px solid rgb(255, 194, 63);
+    background: rgba(20, 20, 20, 0.6);
+    font-size:35px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: white;
+    border-radius: 50px;
+    transition: 0.4s;
+}
+#add-button:hover {
+    background: rgba(116, 79, 0, 0.612);
+}
+#submitButton{
+    padding: 35px;
+    height: fit-content;
+    width: 20%;
+    margin-top: 20%;
+    margin-left: 4%;
+    border: 1px solid rgb(255, 194, 63);
+    background: rgba(20, 20, 20, 0.6);
+    font-size:35px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: white;
+    border-radius: 50px;
+}
+#submitButton:hover {
+    background: rgba(116, 79, 0, 0.612);
+}
+.inputFields {
+    font-size: 30px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border: 1px solid rgb(255, 202, 149);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background: rgba(20, 20, 20, 0.2);
+    color: white;
+    outline: none;
+  }
+
+.left{
+    padding: 50px;
+    padding-right: 5%;
+    margin: 0;
+    overflow-y:initial;
+    overflow-x: hidden;
+}
+
+#form-container{
+    padding: 10px;
+    margin: 10px;
+}
+
+input[id^="merge_upload"] {
+    margin: 10px;
+    padding: 10px;
+}
+
+p#info-sse{
+    padding: 10px;
+    margin: 25px;
+    margin-top: 42%;
+    font-size: 30px;
+    border: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.295);
+    height: fit-content;
 }
