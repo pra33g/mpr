@@ -212,4 +212,13 @@ function removeNode(elem){
     let id = elem.id
     let cont = elem.parentElement.parentElement
     cont.removeChild(elem.parentElement)
+    let allNodes = document.getElementsByClassName('si-node')
+    for (let i = 1; i <= allNodes.length; i++){
+        allNodes[i - 1].id = `si-node-${i}`
+        let node = document.getElementById(`si-node-${i}`)
+        node.getElementsByClassName('si-ep')[0].id = `si-ep-${i}`
+        node.getElementsByClassName('si-sp')[0].id = `si-sp-${i}`
+        node.getElementsByClassName('si-add')[0].id = `si-add-${i}`
+        node.getElementsByClassName('si-rem')[0].id = `si-rem-${i}`
+    }
 }
