@@ -10,18 +10,9 @@
             <input id="submit_button" type="submit" value="Upload" class="">
         </form>
     </div>
-    <div id="mode-selector-heading" class="tooltip">
-        :Supervised Mode:<input id="mode-selector" type="checkbox">
-        <span class="tooltiptext">
-            <ul>
-                <li>Partition a file properly [eg: 3 partitions 1-2, 2-5, 5-10]</li>
-                <li>Calculate first page of next partition automatically</li>
-            </ul>
-        </span>
-
-    </div>
     
-    <div id="split-info-dl-phase">
+    <div id="split-info-dl-phase" class="hidden">
+
         <div id="si-container">
             <div class="si-node" id="si-node-1">
                 <input onblur="inputSupervisor_sp(this)" type="number" disabled="true" value="1" class="si-sp" id="si-sp-1">
@@ -31,9 +22,20 @@
                 <br><br>
             </div>
         </div>
+        <div id="mode-selector-heading" class="tooltip">
+            :Supervised Mode:<input id="mode-selector" type="checkbox">
+            <span class="tooltiptext">
+                <ul>
+                    <li>Partition a file properly [eg: 3 partitions 1-2, 2-5, 5-10]</li>
+                    <li>Calculate first page of next partition automatically</li>
+                </ul>
+            </span>
+    
+        </div>
+        <button id="send-split-data" onclick="sendData()">Split</button>
+
     </div>
     <p id="info">Upload your file</p>
-    <button id="send-split-data" onclick="sendData()">Split</button>
 </body>
 <script src="script.js"></script>
 </html>
