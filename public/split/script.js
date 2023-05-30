@@ -280,6 +280,7 @@ function sendData(){
         let cont = document.getElementById('si-container')
         let totalNodes = cont.childElementCount
         let data = {'split_info':[]}
+        data.name = pdfname
         for (let i = 1; i <= totalNodes; i++){
 
             let sp = document.getElementById(`si-sp-${i}`)
@@ -294,7 +295,9 @@ function sendData(){
                 "Content-type": "application/json; charset=UTF-8",
             }
         })
-        .then(response=>console.log(response))
+        .then(response=>{
+            return response
+        })
         .then(response=>console.log(response))
     }
 }  
