@@ -249,18 +249,38 @@ function removeNode(elem){
 function checkInput(){
     let cont = document.getElementById('si-container')
     let totalNodes = cont.childElementCount
+    let flag = true
     for (let i = 1; i <= totalNodes; i++){
         let sp = document.getElementById(`si-sp-${i}`).val
         let ep = document.getElementById(`si-ep-${i}`).val
         if (sp <= 0 || ep <= 0){
             showMessage(`Page number invalid (Part ${i})`)
+            flag = false
         }
         if (sp > ep){
             showMessage(`Start page can't exceed end page (Part ${i})`)
+            flag = false
         }
     }
+    return flag
 }
 /**
  * send split data
 */
+function sendData(){
+    if (checkInput() == true){
+        let cont = document.getElementById('si-container')
+        let totalNodes = cont.childElementCount
+        let data = {'split_info':[]}
+        for (let i = 1; i <= totalNodes; i++){
+
+            let sp = document.getElementById(`si-sp-${i}`)
+            let ep = document.getElementById(`si-ep-${i}`)
+            data.split_info.push({'sp':Number(sp.value), 'ep': Number(ep.value)})
+        }
+        log(data)
+        
+    }
+}  
+
 
