@@ -233,3 +233,25 @@ function removeNode(elem){
         node.getElementsByClassName('si-rem')[0].id = `si-rem-${i}`
     }
 }
+/**
+ * Check splitting data before sending
+ */
+
+function checkInput(){
+    let cont = document.getElementById('si-container')
+    let totalNodes = cont.childElementCount
+    for (let i = 1; i <= totalNodes; i++){
+        let sp = document.getElementById(`si-sp-${i}`).val
+        let ep = document.getElementById(`si-ep-${i}`).val
+        if (sp <= 0 || ep <= 0){
+            showMessage(`Page number invalid (Part ${i})`)
+        }
+        if (sp > ep){
+            showMessage(`Start page can't exceed end page (Part ${i})`)
+        }
+    }
+}
+/**
+ * send split data
+*/
+
