@@ -23,7 +23,6 @@ source.addEventListener('message', message => {
 
     }
 })
-
 /*
     UPLOAD FILE
 */
@@ -82,7 +81,6 @@ function showMessage(text){
  * set EP_(N-1) = EP_N 
  *  
  */
-
 function add(elemParent){
     // elem is the elem below which new node is added
     // get total elems in container
@@ -114,8 +112,7 @@ function add(elemParent){
 // unsupervisedMode -> false -> number of partitions are limited
 let checked = document.getElementById('mode-selector').checked
 let unsupervisedMode = !checked
-log(checked, unsupervisedMode)
-// switchSP(unsupervisedMode)
+setSP()
 function addSupervisor(elemParent, elem){
     let totalNodes = document.getElementById('si-container').childElementCount
     if (unsupervisedMode || totalNodes < pages){
@@ -173,7 +170,6 @@ function calcSP(elem){
         next_sp.value = Number(elem.value) + 1
     }
 }
-
 document.getElementById('mode-selector').onclick = (ev) => {
     elem = ev.currentTarget
     unsupervisedMode = !elem.checked
@@ -181,7 +177,6 @@ document.getElementById('mode-selector').onclick = (ev) => {
     switchSP(!elem.checked)
     checker(ev)
 }
-
 function checker(ev) {
     elem = ev.currentTarget
     let sup = elem.checked
@@ -197,7 +192,6 @@ function checker(ev) {
         }
     }
 }
-
 function switchSP(bool){
     let spnodes = document.getElementsByClassName('si-sp')
     for (let spn of spnodes){
@@ -216,4 +210,3 @@ function removeNode(elem){
     let cont = elem.parentElement.parentElement
     cont.removeChild(elem.parentElement)
 }
-setSP()
