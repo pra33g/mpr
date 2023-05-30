@@ -4,7 +4,8 @@
 */
 const source = new EventSource('/sse')
 source.addEventListener('message', message => {
-    let got = JSON.parse(JSON.parse(message.data))
+    let got = (JSON.parse(message.data))
+    log(message)
     log("Got:", got.message)
     showMessage(got.message)
     if (got.message == "saved-file"){
