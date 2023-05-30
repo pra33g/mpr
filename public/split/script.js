@@ -134,15 +134,15 @@ function inputSupervisor(elem){
     let sp =  node_sp.value
     let ep = Number((node_ep.value))
     
-    if (ep == 0){
-        showMessage('Enter valid value. 0 is not valid')
-        node_ep.value = 0
+    if (ep <= 0){
+        showMessage('Invalid value for page number')
+        node_ep.value = sp
     }
     if (ep > pages){
         node_ep.value = pages
         showMessage('End page value can not exceed max pages count')
     }
-    else {
+    if (ep > 0 && ep <= pages) {
         showMessage(`Part:${sp}-${ep}`)
     }
     if (!unsupervisedMode){
@@ -167,7 +167,9 @@ function calcSP(elem){
     let totalNodes = document.getElementById('si-container').childElementCount
     if (nextNodeNo <= totalNodes){
         next_sp = elem.parentElement.parentElement.querySelectorAll(`#si-sp-${nextNodeNo}`)[0]
+        next_ep = elem.parentElement.parentElement.querySelectorAll(`#si-ep-${nextNodeNo}`)[0]
         next_sp.value = Number(elem.value) + 1
+        next_ep.value = Number(elem.value) + 1
     }
 }
 document.getElementById('mode-selector').onclick = (ev) => {
@@ -175,9 +177,10 @@ document.getElementById('mode-selector').onclick = (ev) => {
     unsupervisedMode = !elem.checked
     showMessage(`Supervised mode ${elem.checked ? "on" : "off" }`)
     switchSP(!elem.checked)
-    checker(ev)
+    nodeListLengthEnforcer(ev)
 }
-function checker(ev) {
+//check if no of nodes doesn't exceed no of pages in supervised mode
+function nodeListLengthEnforcer(ev) {
     elem = ev.currentTarget
     let sup = elem.checked
     if (sup){
