@@ -211,6 +211,15 @@ function switchSP(bool){
     for (let spn of spnodes){
         spn.disabled = !bool
     }
+    if(!unsupervisedMode){
+        let cont = document.getElementById('si-container')
+        let totalNodes = cont.childElementCount
+        for (let i = 1; i <= totalNodes; i++){
+            let ep = document.getElementById(`si-ep-${i}`)
+            inputSupervisor(ep)
+        }
+        
+    }
 }
 function setSP(){
     let spnodes = document.getElementsByClassName('si-sp')
