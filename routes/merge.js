@@ -7,7 +7,7 @@ const log = console.log.bind(console)
 const httpReason = require('http-status-codes').getReasonPhrase
 
 router.use(express.json())
-router.use(express.urlencoded())
+router.use(express.urlencoded({extended:true}))
 
 router.get("/", (req, res) => {});
 
