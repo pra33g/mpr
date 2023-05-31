@@ -1,3 +1,4 @@
 https://is.gd/F4kfCh
+https://drive.google.com/drive/u/1/folders/1i2ALvxt-MPw8A9Vhp78d-3xS1RbdOUtK
 Extract gs.zip in routes/pdfbm
 Place ngrok.exe in root directory
