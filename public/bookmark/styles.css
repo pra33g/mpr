@@ -208,6 +208,9 @@ div[id^="bmno"] {
   margin-top: 0%;
   margin-right: auto;
   /* margin-right: auto; */
-  overflow-y: scroll;
+  
+  overflow-y:initial;
+  overflow-x: hidden;
+  /* overflow-y: scroll; */
   width: auto;
 }
