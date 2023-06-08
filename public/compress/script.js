@@ -132,8 +132,13 @@ function sendData(){
         data.name = pdfname
         data.size = size
         // data.compression = 
-        let compression_opt = document.getElementById('compress-ratio').value
-        data.compression = compression_opt
+        let compression_opt = document.getElementById('compress-ratio').checked
+        if(compression_opt){
+            data.compression = "max"
+        }
+        else
+            data.compression = "min"
+        
         console.log(data)
         fetch('/compress', {
             method:'POST',
