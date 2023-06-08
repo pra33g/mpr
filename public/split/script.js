@@ -146,15 +146,23 @@ let checked = document.getElementById('mode-selector').checked
 let unsupervisedMode = !checked
 setSP()
 function addSupervisor(elemParent, elem){
+    let ep_val = elemParent.getElementsByClassName('si-ep')[0].value
+    if(ep_val.length == 0){
+        ep_val = 1
+    }
+    log(ep_val)
     let totalNodes = document.getElementById('si-container').childElementCount
-    if (unsupervisedMode || totalNodes < pages){
+    if (unsupervisedMode || ep_val < pages && totalNodes < pages){
         add(elemParent)
         //get current node's ep value
     } 
-    if (totalNodes == pages){
+    if (totalNodes == pages || ep_val >= pages){
         showMessage(`Number of partitions can not exceed total page count ${pages}`)
     }
+    // get current nodes ep value
+    // if ep value exceeds pages
     calcSP(elemParent.getElementsByClassName(`si-ep`)[0])
+    // inputSupervisor(elem)
 }
 function inputSupervisor(elem){
     let totalNodes = document.getElementById('si-container').childElementCount
@@ -211,7 +219,12 @@ function calcSP(elem){
     if (nextNodeNo <= totalNodes){
         next_sp = elem.parentElement.parentElement.querySelectorAll(`#si-sp-${nextNodeNo}`)[0]
         next_ep = elem.parentElement.parentElement.querySelectorAll(`#si-ep-${nextNodeNo}`)[0]
-        next_sp.value = Number(elem.value) + 1
+        next_val = Number(elem.value) + 1
+        if (next_val > pages){
+            next_val = pages
+        }
+        next_sp.value = next_val
+        // next_sp.value = Number(elem.value) + 2
         // next_ep.value = Number(elem.value) + 1
     }
 }

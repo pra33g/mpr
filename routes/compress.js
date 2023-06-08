@@ -54,7 +54,7 @@ function compressFile(input_fname, output_fname, compression){
 
     if (process.platform == 'win32'){
         log('windows')
-        let command = `compress.bat ${input_fname} ${output_fname}`
+        let command = `compress.bat ${input_fname} ${output_fname} ${ratio}`
         log(command)
         let run = require('child_process').execSync(
             command,
