@@ -47,6 +47,7 @@ router.post("/", async (req, res) => {
         if (req.files && req.files.pdfbm_upload.mimetype==='application/pdf'){
             const pdf = req.files.pdfbm_upload;
             const origName = pdf.name;
+            log('size[B,KB,MB]', pdf.size, pdf.size/1024,pdf.size/(1024*1024))
             pdf.name = pdf.name.replaceAll(' ','-');
             pdf.name = pdf.name.replaceAll('\'','');
             pdf.name = pdf.name.replaceAll('"','');
@@ -76,7 +77,17 @@ router.post("/", async (req, res) => {
                         //file has been saved with name pdf.name
                         log('Created:', pdfPath)
                         sendSse({'message':"saved-file"})
-                        pages = ppageCountPDF(pdfPath, res, pdf.name);
+                        dataObj = ppageCountPDF(pdfPath, res, pdf.name);
+                        dataObj
+                        .then(dataJsonObj => {
+                            log(dataJsonObj)
+                            dataJsonObj['size'] = pdf.size
+                            res.json(dataJsonObj)
+                        })
+                        .catch(errJsonObj => {
+                            log(errJsonObj)
+                            res.json(errJsonObj)
+                        })
                     }
                 });
                  
@@ -119,16 +130,17 @@ function pageCountPDFPromise(path){
 //example:  ppageCountPDF(__dirname+"/upload/PDFMarkRecipes.pdf");
 async function ppageCountPDF(path, res, name){
     try {
-        
-        let {numPages: pages} = await pageCountPDFPromise(path);
-        res.json(httpObject(httpCode.CREATED, {"pages":pages, "name":name, "message":"Successfully opened PDF"}));
-        return pages;
+        let promise = await pageCountPDFPromise(path);
+        let {numPages: pages} = promise;
+        // res.json(httpObject(httpCode.CREATED, {"pages":pages, "name":name, "message":"Successfully opened PDF"}));
+        return (httpObject(httpCode.CREATED, {"pages":pages, "name":name, "message":"Successfully opened PDF"}));
     }
     catch (err) {
         console.log(err);
         let ret = httpObject(httpCode.INTERNAL_SERVER_ERROR,{"message":`PDFError check your pdf${name}`});
-        res.json(ret);
-        return -1;
+        return ret
+        // res.json(ret);
+        // return -1;
     }
 }
 
