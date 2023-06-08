@@ -26,7 +26,7 @@ function handleData(data){
         partNames.push(pname)
     }
     if (process.platform == 'win32'){
-        let command = `split_shortcut.bat`
+        let command = `gs_create_shortcut.bat`
         log(command)
         let run = require('child_process').execSync(
             command,
