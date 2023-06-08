@@ -4,8 +4,23 @@
 </head>
 <body>
     <!-- upload file -->
-    <!-- run compress script on server -->
-    <!-- download -->
+    <button id="reload" onclick="resetPage() ">Reset </button><br><br>
+    <div id="upload-phase">
+        <form id="compress-upload-form" enctype="multipart/form-data" method="post">
+            <input id="compress-upload-input" type="file" accept="application/pdf" name="pdfbm_upload">
+            <br><br>
+            <input id="submit_button" type="submit" value="Upload" class="">
+        </form>
+    </div>
+    <p id="info">Upload file</p>
+    <div id="download-phase">
+        <select id="compress-ratio" name="compress-ratio">
+            <option value="min">Min compression</option>
+            <option value="max">Max compression</option>
+          </select>
+        <button id="send-split-data" onclick="sendData()">Compress</button>
+    </div>
+
 </body>
 <script src="script.js"></script>
 </html>
