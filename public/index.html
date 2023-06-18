@@ -6,28 +6,34 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Sanchez&display=swap" rel="stylesheet">
 </head>
 
 <body >
   <div class="signupSection">
-    <button id="join-btn" onclick="window.location.href='./bookmark/bookmarksIndex.html'">
-      Bookmark
-    </button>
-    <button id="merge-btn" onclick="window.location.href='./merge/index.html'">
-      Merge
-    </button>
-    <button id="split-btn" onclick="window.location.href='./split/index.html'">
-      Split
-    </button>
-      <button id="split-btn" onclick="window.location.href='./compress/index.html'">
-      Compress
-    </button>
-    <h1 onmouseenter="typeWriter()" onmouseleave="removeText()">
-      All your PDF needs at one place!<br>
-    </h1>
-    <img class="image" src="./bookmark/PDFSynth.png" height="70px" width="70px">
-
+    <img class="image" src="./bookmark/PDFSynth.png" height="80px" width="80px"> 
+      <h1 id = "heading" onmouseenter="typeWriter()" onmouseleave="removeText()" style="font-size: 3rem;">
+        All your PDF needs at one place!<br>
+      </h1>
+      <div id="card">
+        <button id="join-btn" class = "card" onclick="window.location.href='./bookmark/bookmarksIndex.html'">
+          Bookmark &nbsp;&nbsp;
+          <img src="./icons/bookmark-icon.png" alt="bookmark-icon" height="20px">
+        </button>
+        <button id="merge-btn" class = "card" onclick="window.location.href='./merge/index.html'">
+          Merge &nbsp;&nbsp;
+          <img src="./icons/merge-icon.png" alt="merge-icon" height="20px">
+        </button>
+        <button id="split-btn" class = "card" onclick="window.location.href='./split/index.html'">
+          Split &nbsp;&nbsp;
+          <img src="./icons/split-icon.png" alt="split-icon" height="20px">
+        </button>
+        <button id="split-btn" class = "card" onclick="window.location.href='./compress/index.html'">
+          Compress &nbsp;&nbsp;
+          <img src="./icons/compress-icon.png" alt="compress-icon" height="20px">
+        </button>
+    </div>
   </div>
 </body>
 <script src="script.js"></script>

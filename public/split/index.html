@@ -1,42 +1,53 @@
 <!DOCTYPE html>
 <head>
     <link rel='stylesheet' href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <button id="reload" onclick="resetPage() ">Reset </button><br><br>
-    <div id="upload-phase">
-        <form id="split-upload-form" enctype="multipart/form-data" method="post">
-            <input id="split-upload-input" type="file" accept="application/pdf" name="pdfbm_upload">
-            <br><br>
-            <input id="submit_button" type="submit" value="Upload" class="">
-        </form>
-    </div>
-    
-    <div id="split-info-dl-phase" class="hidden">
+    <div id="container">
 
-        <div id="si-container">
-            <div class="si-node" id="si-node-1">
-                <input onblur="inputSupervisor_sp(this)" type="number" disabled="true" value="1" class="si-sp" id="si-sp-1">
-                <input  onblur="inputSupervisor(this)" type="number" value="0" class="si-ep" id="si-ep-1">
-                <button onclick="addSupervisor(this.parentElement, this)" class="si-add" id="si-add-1">+++</button>
-                <button onclick="removeNode(this)" disabled="true" class="si-rem" id="si-rem-1">---</button>
-                <br><br>
+        <button id="reload" onclick="resetPage() ">Reset </button><br><br>
+        <div id="upload-phase">
+            <form id="split-upload-form" enctype="multipart/form-data" method="post">
+                <input id="split-upload-input" type="file" accept="application/pdf" name="pdfbm_upload">
+                
+                <input id="submit_button" type="submit" value="Upload" class="">
+            </form>
+            <img src="../bookmark/split.png" alt="split" id="split-image">
+        </div>
+        
+        <div id="split-info-dl-phase" class="hidden">
+            
+            <div id="si-container">
+                <div class="si-node" id="si-node-1">
+                    <input onblur="inputSupervisor_sp(this)" type="number" disabled="true" value="1" class="si-sp" id="si-sp-1">
+                    <input  onblur="inputSupervisor(this)" type="number" value="0" class="si-ep" id="si-ep-1">
+                    <button onclick="addSupervisor(this.parentElement, this)" class="si-add" id="si-add-1">Add</button>
+                    <button onclick="removeNode(this)" disabled="true" class="si-rem" id="si-rem-1">Del</button>
+                    <br><br>
+                </div>
+            </div>
+            <div id="mode-selector-heading" class="tooltip">                    
+                <label class="switch">
+                    <input id="mode-selector" type="checkbox" checked>
+                    <span class="slider round"></span>
+                    <span class="tooltiptext">
+                            Partition a file properly [eg: 3 partitions 1-2, 2-5, 5-10] <br>
+                            Calculate first page of next partition automatically
+                    </span>
+                </label>&nbsp;&nbsp;&nbsp;
+                <span style="font-size: 20px;">Supervised Mode</span>
+
+                
+            </div>
+            <div id = "button">
+                <button id="send-split-data" onclick="sendData()">Split</button>
             </div>
         </div>
-        <div id="mode-selector-heading" class="tooltip">
-            :Supervised Mode:<input id="mode-selector" type="checkbox">
-            <span class="tooltiptext">
-                <ul>
-                    <li>Partition a file properly [eg: 3 partitions 1-2, 2-5, 5-10]</li>
-                    <li>Calculate first page of next partition automatically</li>
-                </ul>
-            </span>
-    
-        </div>
-        <button id="send-split-data" onclick="sendData()">Split</button>
-
+        <p id="info">Upload your file</p>
     </div>
-    <p id="info">Upload your file</p>
-</body>
-<script src="script.js"></script>
+    </body>
+    <script src="script.js"></script>
 </html>

@@ -3,6 +3,9 @@
     <head>
         <link rel="icon" href="./remove.png"> 
         <link rel="stylesheet" href="styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     </head>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -12,7 +15,7 @@
         <div class="signupSection">
             
             <form id="form_bookmark" action="/upload" enctype="multipart/form-data" method="POST" class="signupForm">
-                <h2 style="font-size: 3rem;">Upload Your Files</h2>
+                <h2 style="font-size: 2rem; margin-bottom: 50px;">Upload Your Files</h2>
                 
                     
                         <input type="file" id="pdfbm_upload" class="inputFields" accept="application/pdf" name="pdfbm_upload" multiple="multiple"><br>
@@ -28,40 +31,21 @@
             <div id="bmInputContainer" style="display:none">
                 <div id="bmno_1"  data-tablevel="0">
                     <button class="join-btn" type="button" onclick="incIndent(this, this.parentElement, this.parentElement.parentElement)" >[>]</button>
-                    <button class="join-btn" type="button" onclick="decIndent(this, this.parentElement, this.parentElement.parentElement)" >[<]</button>
+                    <button class="join-btn" type="button" onclick="decIndent(this, this.parentElement, this.parentElement.parentElement)" >                        
+                        <img src="../icons/arrow-left.svg" alt="Parent BM">
+                    </button>
                     <input id="pno" class="inputFields1"  type="number" onblur="checkPno(this)">
                     <input id="name" class="inputFields1" type="text" onblur="checkName(this)">
-                    <button id="new" class="join-btn" type="button" onclick="addBmFieldBelow(this.parentElement.id)">[+]</button>
+                    <button id="new" class="join-btn" type="button" onclick="addBmFieldBelow(this.parentElement.id)">
+                    </button>
                     <button id="del" class="join-btn" type="button" onclick="deleteThisBm(this.parentElement.parentElement.id, this.parentElement.id)" >[-]</button>
                 </div>
             </div>
-            <div id="dStatus">
                 <p id="pMessage" style="display: none"></p>
-            </div>
             <button type="button" id="sendInput" onclick="sendBmJson()" style="display: none">Download</button>
             
             
         </div>
-        <!-- <img class="image" src="./remove.png" height="70px" width="70px"> -->
-        <!-- <div id="dStatus">
-            <p id="pMessage"></p>
-        </div> -->
-        
-        <!-- <div id="dPreviewPdf">
-            <embed id="ePreviewPdf" src="" width="400px" height="400px"/>
-        </div> -->
-
-        <!-- <div id="bmInputContainer" style="display:none">
-            <div id="bmno_1" data-tablevel="0">
-                <button class="inc" type="button" onclick="incIndent(this, this.parentElement, this.parentElement.parentElement)" >[+->]</button>
-                <button class="dec" type="button" onclick="decIndent(this, this.parentElement, this.parentElement.parentElement)" >[<+-]</button>
-                <input class="pno"  type="number" onblur="checkPno(this)">
-                <input class="name" type="text" onblur="checkName(this)">
-                <button class="new" type="button" onclick="addBmFieldBelow(this.parentElement.id)">[+]</button>
-                <button class="del" type="button" onclick="deleteThisBm(this.parentElement.parentElement.id, this.parentElement.id)" >[-]</button>
-            </div>
-        </div>
-        <button type="button" id="sendInput" onclick="sendBmJson()" style="display: none">Add bookmarks</button> -->
     </body>
 
     <script src="script.js"></script>

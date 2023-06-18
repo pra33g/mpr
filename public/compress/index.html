@@ -1,26 +1,40 @@
 <!DOCTYPE html>
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <link rel='stylesheet' href="style.css">
 </head>
 <body>
-    <!-- upload file -->
-    <button id="reload" onclick="resetPage() ">Reset </button><br><br>
-    <div id="upload-phase">
-        <form id="compress-upload-form" enctype="multipart/form-data" method="post">
-            <input id="compress-upload-input" type="file" accept="application/pdf" name="pdfbm_upload">
-            <br><br>
-            <input id="submit_button" type="submit" value="Upload" class="">
-        </form>
-    </div>
-    <p id="info">Upload file</p>
-    <div id="download-phase">
-        <input type = "checkbox" id="compress-ratio" name="compress-ratio">
-            <!-- <option value="min">Min compression</option>
-            <option value="max">Max compression</option> -->
-          <!-- </select> -->
-        <button id="send-split-data" onclick="sendData()">Compress</button>
-    </div>
-
+    <div id="signup-section">
+        <!-- upload file -->
+        <button id="reload" onclick="resetPage() ">Reset </button><br><br>
+                <div id="upload-phase">
+                    <form id="compress-upload-form" enctype="multipart/form-data" method="post">
+                        <input id="compress-upload-input" type="file" accept="application/pdf" name="pdfbm_upload">
+                        <br><br>
+                        <input id="submit_button" type="submit" value="Upload" class="">
+                    </form>
+                </div>
+                <div id="download-phase">
+                    <div id="super">
+                        <span style="font-size: 30px;">Min Mode</span>&nbsp;&nbsp;&nbsp;
+                        <label class = "switch">
+                        <input type = "checkbox" id="compress-ratio" name="compress-ratio" checked>
+                        <span class = "slider round"></span>
+                        </label>&nbsp;&nbsp;&nbsp;
+                        <span style="font-size: 30px;">Max Mode</span>
+                    </div>
+                    <br><br>
+                    <button id="send-split-data" onclick="sendData()">Compress</button>
+                </div>
+                
+                <div id = "image">
+                    <img src="../bookmark/compress.png" alt="compress" height="200px">
+                </div>
+                <p id="info">Upload file</p>
+                
+            </div>
 </body>
 <script src="script.js"></script>
 </html>

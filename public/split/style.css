@@ -1,30 +1,51 @@
+*{
+  margin: 0;padding: 0;
+  font-family: Ubuntu;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  overflow: hidden;
+  background-image: url("../bookmark/sus3.png");
+  background-repeat: no-repeat;
+  background-size:cover;
+  width: 100vw;
+  height: 100vh;
+}
+
 .hidden{
     display: none;
 }
 .tooltip {
     position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
+    display: flex;
+    align-items: center;justify-content: center;
+    padding: 10px;
   }
   
-  .tooltip .tooltiptext {
+.tooltip .tooltiptext {
     visibility: hidden;
-    width: 120px;
-    background-color: #555;
+    background-color: #c74c00;
     color: #fff;
     text-align: center;
     border-radius: 6px;
-    padding: 5px 0;
+    padding: 10px;
     position: absolute;
     z-index: 1;
     bottom: 125%;
     left: 50%;
     margin-left: -60px;
     opacity: 0;
+    width: 150px;
     transition: opacity 0.3s;
-  }
+}
   
-  .tooltip .tooltiptext::after {
+.tooltip .tooltiptext::after {
     content: "";
     position: absolute;
     top: 100%;
@@ -32,10 +53,228 @@
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: #555 transparent transparent transparent;
-  }
+    border-color: #c74c00 transparent transparent transparent;
+    /* border-color: #555 transparent transparent transparent; */
+}
   
-  .tooltip:hover .tooltiptext {
+.tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+}
+
+#si-container{
+  width: 650px;
+  padding-left: 50px;
+  display: flexbox;
+  overflow: auto;
+  max-height: 150px;
+
+&::-webkit-scrollbar{
+  width: 1rem;
+}
+
+&::-webkit-scrollbar-track{
+  background: hsla(0, 96%, 67%, 0.381);
+  border-radius: 100vw;
+}
+
+&::-webkit-scrollbar-thumb{
+  background: hsl(0, 87%, 43%);
+  border-radius: 100vw;
+
+}
+}
+
+#container{
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+  width: 80%;
+  background-color: transparent;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#split-image{
+  display: flex;
+  position: relative;
+  left: 50%;
+  width: 300px;
+  animation: animate ease 2s infinite alternate;
+}
+
+@keyframes animate{
+  to{
+    transform: translateY(20px);
   }
+}
+
+#info{
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 2%;
+  background-color: transparent;
+  border: none;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 10px;
+}
+
+#button{
+  display: flex;
+  align-items: center;justify-content: center;
+}
+
+#send-split-data{
+  display: flex ;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: transparent;
+  border:none;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: white;
+}
+
+
+button[id^="si-add-"]{
+  padding: 3px;
+  background-color: transparent;
+  border:none;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: white;
+}
+
+#si-rem-1{
+  opacity: 0.5;
+}
+
+button[id^="si-rem-"]{
+  padding: 3px;
+  background-color: transparent;
+  border:none;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: white;
+}
+
+#split-upload-form{
+  display: flexbox;
+  position: absolute;
+  top: 40%;
+  left: 20%;
+
+}
+
+#submit_button{
+  display: flex ;
+  padding: 10px;
+  margin-top: 10%;
+  margin-left: 40%;
+  background-color: transparent;
+  border:none;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: white;
+  position: absolute;
+}
+
+#split-upload-input{
+  display: flex ;
+  padding: 10px;
+  color: white;
+  background-color: transparent;
+  border:none;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+input[id^="si-sp-"]{
+  background-color: transparent;
+  border: 1px solid white;
+  padding: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: white;
+
+
+}
+
+input[id^="si-ep-"]{
+  background-color: transparent;
+  border: 1px solid white;
+  padding: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: white;
+}
+
+#reload{
+  display: flex;
+  height: fit-content;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 8px 20px;
+  margin: 15px 0 0 15px;
+  background-color: transparent;
+  border:none;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: white;
+  font-size: 15px; font-weight: 500;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: orange;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px orange;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}

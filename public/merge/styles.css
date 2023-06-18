@@ -1,107 +1,116 @@
-*{
+* {
     margin: 0;
     padding: 0;
+    font-family: Ubuntu;
+    font-size: 15px; font-weight: 500;
 }
-.hidden{
+
+.hidden {
     display: none;
 }
+
 body{
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: white;
     overflow: hidden;
     background-image: url("../bookmark/sus3.png");
-    background-size: cover;
     background-repeat: no-repeat;
-}
-#signup-section{
     background-size:cover;
-    background-repeat: no-repeat;
-    position: relative;
-    margin-top: 18%;
-    margin-left: 50%;
-    transform: translate(-50%, -50%);
-    width: 118rem;
-    height: 57rem;
-    text-align: center;
-    display: flex;
-    color: white;
-    box-shadow: 3px 10px 20px 5px rgba(0, 0, 0, 0.5);
+    width: 100vw;
+    height: 100vh;
 }
-h2{
+
+#signup-section{
     display: flex;
-    padding: 50px;
+    position: relative;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 80%;
+    background-color: transparent;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#upload-head{
+    display: flex;
+    position: absolute;
+    top: 0;
+    margin-top: 20px;
+    font-size: 35px;
+}
+
+#info-sse{
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 2%;
+    background-color: transparent;
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 10px;
 }
 
 #add-button{
-    padding: 35px;
-    height: fit-content;
-    width: 20%;
-    margin-top: 20%;
-    margin-left: 3%;
-    border: 1px solid rgb(255, 194, 63);
-    background: rgba(20, 20, 20, 0.6);
-    font-size:35px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin: 10px;
+    padding: 10px;
+    background-color: transparent;
+    border:none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     color: white;
-    border-radius: 50px;
-    transition: 0.4s;
 }
-#add-button:hover {
-    background: rgba(116, 79, 0, 0.612);
-}
-#submitButton{
-    padding: 35px;
-    height: fit-content;
-    width: 20%;
-    margin-top: 20%;
-    margin-left: 4%;
-    border: 1px solid rgb(255, 194, 63);
-    background: rgba(20, 20, 20, 0.6);
-    font-size:35px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    color: white;
-    border-radius: 50px;
-}
-#submitButton:hover {
-    background: rgba(116, 79, 0, 0.612);
-}
-.inputFields {
-    font-size: 30px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    border: 1px solid rgb(255, 202, 149);
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    background: rgba(20, 20, 20, 0.2);
-    color: white;
-    outline: none;
-  }
 
-.left{
-    padding: 50px;
-    padding-right: 5%;
-    margin: 0;
-    overflow-y:initial;
-    overflow-x: hidden;
+#submitButton{
+    margin: 10px;
+    padding: 10px;
+    background-color: transparent;
+    border:none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    color: white;
 }
 
 #form-container{
-    padding: 10px;
-    margin: 10px;
+    position: absolute;
+    top:40%;
+    left: 0;
+    justify-content: center;
+    width: 300px;
+    padding-left: 50px;
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: 150px;
+
+    &::-webkit-scrollbar{
+        width: 1rem;
+      }
+      
+      &::-webkit-scrollbar-track{
+        background: hsl(0, 96%, 67%);
+        border-radius: 100vw;
+      }
+      
+      &::-webkit-scrollbar-thumb{
+        background: hsl(0, 87%, 43%);
+        border-radius: 100vw;
+      
+      }
 }
 
-input[id^="merge_upload"] {
-    margin: 10px;
-    padding: 10px;
+input[id^="merge_upload_"]{
+    background-color: transparent;
 }
 
-p#info-sse{
-    padding: 10px;
-    margin: 25px;
-    margin-top: 42%;
-    font-size: 30px;
-    border: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.295);
-    height: fit-content;
+#merge-image{
+    height: 80px;
+    margin-right: 50px;
+    position: absolute;
+    right: 0;
+    animation: animate 2s ease infinite alternate;
+}
+@keyframes animate{
+    to{
+        transform: translateY(20px);
+    }
 }
