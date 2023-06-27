@@ -49,6 +49,7 @@ async function createBmFile(oobj){
             + element.title
             + newLine;
     });
+    //for windows write bookmarks.file to pdfbm folder
     let bmPath = path.join(__dirname, "pdfbm", "bookmarks.file");
     fs.writeFileSync(
         bmPath, 
@@ -58,7 +59,16 @@ async function createBmFile(oobj){
             flag: "w",
             mode: 0o666,
         });
-    // log(pdfname)
+    // for linux write bookmarks.file to uploads folder
+    bmPath = path.join(__dirname, "upload", "bookmarks.file");
+    fs.writeFileSync(
+        bmPath, 
+        bmText,
+        {
+            encoding: "utf8",
+            flag: "w",
+            mode: 0o666,
+        });
 }
 function httpObject(code, additionalProp){
     let ret = {"http":code};
@@ -86,6 +96,16 @@ async function callPdfBM(ifname){
 
     } else if (process.platform === "linux"){
         log("exec linux script");
+        let ofname = ifname.substring(0,21).concat("-converted.pdf");
+        // execSync('cd', { cwd: path.join(__dirname) });
+        let command = `./pdfbookmark-linux.o ${ifname} ${ofname}`;
+        // let command = `pwd`;
+        execSync(command,
+            {
+                cwd: `${__dirname}/upload/`,
+                stdio: 'inherit'
+            });
+        return ofname;
     }
 }
 
