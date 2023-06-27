@@ -120,8 +120,8 @@ function add(elemParent){
     <div class="si-node" id="si-node-${nextId}">
         <input onblur="inputSupervisor_sp(this)" type="number" disabled="true" value="" class="si-sp" id="si-sp-${nextId}">
         <input onblur="inputSupervisor(this)" type="number" class="si-ep" id="si-ep-${nextId}">
-        <button onclick="addSupervisor(this.parentElement, this)" class="si-add" id="si-add-${nextId}">Add</button>
-        <button onclick="removeNode(this)" class="si-rem" id="si-rem-${nextId}">Del</button>
+        <button style='cursor: pointer'  onclick="addSupervisor(this.parentElement, this)" class="si-add" id="si-add-${nextId}">Add</button>
+        <button  style='cursor: pointer' onclick="removeNode(this)" class="si-rem" id="si-rem-${nextId}">Del</button>
         <br><br>
     </div>
     `

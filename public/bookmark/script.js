@@ -74,18 +74,18 @@ function addBmFieldBelow(elemParentId){
 
     let text = `
     <div id="bmno_${nextIdNo}" data-tablevel="${parent.dataset.tablevel}">
-    <button class="join-btn" type="button" onclick="incIndent(this, this.parentElement, this.parentElement.parentElement)" >
+    <button  style='cursor: pointer' class="join-btn" type="button" onclick="incIndent(this, this.parentElement, this.parentElement.parentElement)" >
         <img src="../icons/arrow-right.svg" alt="Parent BM" width = "20px" height = "13px">
     </button>
-    <button class="join-btn" type="button" onclick="decIndent(this, this.parentElement, this.parentElement.parentElement)" >
+    <button  style='cursor: pointer' class="join-btn" type="button" onclick="decIndent(this, this.parentElement, this.parentElement.parentElement)" >
         <img src="../icons/arrow-left.svg" alt="Parent BM" width = "20px" height = "13px">
     </button>
-    <input id="pno" class="join-btn"  type="number" onblur="checkPno(this)">
+    <input  style='cursor: pointer' id="pno" class="join-btn"  type="number" onblur="checkPno(this)">
     <input id="name" id="pno"class="join-btn" type="text" onblur="checkName(this)">
-    <button class="join-btn" type="button" onclick="addBmFieldBelow(this.parentElement.id)">
+    <button  style='cursor: pointer' class="join-btn" type="button" onclick="addBmFieldBelow(this.parentElement.id)">
         <img src="../icons/plus.svg" alt="Parent BM" width = "20px" height = "13px">
     </button>
-    <button class="join-btn" type="button" onclick="deleteThisBm(this.parentElement.parentElement.id, this.parentElement.id)" >
+    <button  style='cursor: pointer' class="join-btn" type="button" onclick="deleteThisBm(this.parentElement.parentElement.id, this.parentElement.id)" >
         <img src="../icons/minus.svg" alt="Parent BM" width = "20px" height = "13px">
     </button>
     </div>

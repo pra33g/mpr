@@ -30,19 +30,19 @@
 
             <div id="bmInputContainer" style="display:none">
                 <div id="bmno_1"  data-tablevel="0">
-                    <button class="join-btn" type="button" onclick="incIndent(this, this.parentElement, this.parentElement.parentElement)" >[>]</button>
-                    <button class="join-btn" type="button" onclick="decIndent(this, this.parentElement, this.parentElement.parentElement)" >                        
+                    <button  style='cursor: pointer' class="join-btn" type="button" onclick="incIndent(this, this.parentElement, this.parentElement.parentElement)" >[>]</button>
+                    <button  style='cursor: pointer' class="join-btn" type="button" onclick="decIndent(this, this.parentElement, this.parentElement.parentElement)" >                        
                         <img src="../icons/arrow-left.svg" alt="Parent BM">
                     </button>
                     <input id="pno" class="inputFields1"  type="number" onblur="checkPno(this)">
                     <input id="name" class="inputFields1" type="text" onblur="checkName(this)">
-                    <button id="new" class="join-btn" type="button" onclick="addBmFieldBelow(this.parentElement.id)">
+                    <button  style='cursor: pointer' id="new" class="join-btn" type="button" onclick="addBmFieldBelow(this.parentElement.id)">
                     </button>
-                    <button id="del" class="join-btn" type="button" onclick="deleteThisBm(this.parentElement.parentElement.id, this.parentElement.id)" >[-]</button>
+                    <button  style='cursor: pointer' id="del" class="join-btn" type="button" onclick="deleteThisBm(this.parentElement.parentElement.id, this.parentElement.id)" >[-]</button>
                 </div>
             </div>
                 <p id="pMessage" style="display: none"></p>
-            <button type="button" id="sendInput" onclick="sendBmJson()" style="display: none">Download</button>
+            <button  style='cursor: pointer' type="button" id="sendInput" onclick="sendBmJson()" style="display: none">Download</button>
             
             
         </div>

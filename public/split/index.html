@@ -8,7 +8,7 @@
 <body>
     <div id="container">
 
-        <button id="reload" onclick="resetPage() ">Reset </button><br><br>
+        <button style='cursor: pointer'  id="reload" onclick="resetPage() ">Reset </button><br><br>
         <div id="upload-phase">
             <form id="split-upload-form" enctype="multipart/form-data" method="post">
                 <input id="split-upload-input" type="file" accept="application/pdf" name="pdfbm_upload">
@@ -24,8 +24,8 @@
                 <div class="si-node" id="si-node-1">
                     <input onblur="inputSupervisor_sp(this)" type="number" disabled="true" value="1" class="si-sp" id="si-sp-1">
                     <input  onblur="inputSupervisor(this)" type="number" value="0" class="si-ep" id="si-ep-1">
-                    <button onclick="addSupervisor(this.parentElement, this)" class="si-add" id="si-add-1">Add</button>
-                    <button onclick="removeNode(this)" disabled="true" class="si-rem" id="si-rem-1">Del</button>
+                    <button style='cursor: pointer'  onclick="addSupervisor(this.parentElement, this)" class="si-add" id="si-add-1">Add</button>
+                    <button  style='cursor: pointer' onclick="removeNode(this)" disabled="true" class="si-rem" id="si-rem-1">Del</button>
                     <br><br>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                 
             </div>
             <div id = "button">
-                <button id="send-split-data" onclick="sendData()">Split</button>
+                <button  style='cursor: pointer' id="send-split-data" onclick="sendData()">Split</button>
             </div>
         </div>
         <p id="info">Upload your file</p>
