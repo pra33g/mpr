@@ -46,7 +46,7 @@ function compressFile(input_fname, output_fname, compression){
     if (compression == 'min'){
         ratio = 300
     }
-    if (compression == 'min'){
+    if (compression == 'max'){
         ratio = 72
     }
 
